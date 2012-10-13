@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+  config.vm.box = "squeeze"
+
+  config.vm.forward_port 8080, 8080
+
+  config.vm.provision :puppet do |puppet|
+    puppet.manifest_file = "upgrade_puppet.pp"
+  end
+
+  config.vm.provision :puppet do |puppet|
+    puppet.manifest_file = "puppet_modules.pp"
+  end
+
+  config.vm.provision :puppet do |puppet|
+    puppet.manifest_file = "pgci.pp"
+  end
+end
