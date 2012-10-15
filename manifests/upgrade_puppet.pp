@@ -1,3 +1,7 @@
+if $lsbdistcodename == undef {
+  $lsbdistcodename = 'squeeze'
+}
+
 exec { 'puppetlabs-release':
   path => ["/usr/bin", "/usr/sbin", "/bin", "/sbin"],
   command => "sh -c 'cd /tmp && wget http://apt.puppetlabs.com/puppetlabs-release-${lsbdistcodename}.deb && dpkg -i puppetlabs-release-${lsbdistcodename}.deb && apt-get update'",
