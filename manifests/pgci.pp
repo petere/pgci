@@ -20,7 +20,9 @@ ProxyRequests     Off
 <Location /jenkins>
   Order deny,allow
   Allow from all
-</Location>",
+</Location>
+
+DocumentRoot /var/www",
 
   notify => Service['httpd'],
 }
