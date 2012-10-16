@@ -45,3 +45,42 @@ JENKINS_ARGS="--webroot=/var/cache/jenkins/war --httpPort=$HTTP_PORT --ajp13Port
   backup => '.puppet-bak',
   before => Class["jenkins::service"],
 }
+
+package { 'icinga':
+  ensure => present,
+}
+
+service { 'icinga':
+  ensure => running,
+}
+
+# http://projects.puppetlabs.com/issues/3299
+exec { 'fix_nagios_perms':
+  command => '/bin/chmod 0644 /etc/icinga/objects/puppet.cfg',
+  notify => Service['icinga'],
+  refreshonly => true,
+}
+
+Nagios_command {
+  notify => Exec['fix_nagios_perms'],
+  target => '/etc/icinga/objects/puppet.cfg',
+  require => Package['icinga'],
+}
+
+Nagios_service {
+  notify => Exec['fix_nagios_perms'],
+  target => '/etc/icinga/objects/puppet.cfg',
+  require => Package['icinga'],
+}
+
+nagios_command { 'check_http_jenkins':
+  command_line => "/usr/lib/nagios/plugins/check_http -H '\$HOSTADDRESS\$' -I '\$HOSTADDRESS\$' -u 'http://localhost/jenkins' -f follow -s 'Dashboard'",
+}
+
+nagios_service { 'check_http_jenkins_svc':
+  use => 'generic-service',
+  host_name => 'localhost',
+  service_description => 'HTTP Jenkins',
+  check_command => 'check_http_jenkins',
+  require => Nagios_Command['check_http_jenkins'],
+}
