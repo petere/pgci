@@ -84,3 +84,27 @@ nagios_service { 'check_http_jenkins_svc':
   check_command => 'check_http_jenkins',
   require => Nagios_Command['check_http_jenkins'],
 }
+
+package { 'exim4-base': ensure => purged }
+package { 'exim4-config': ensure => purged }
+package { 'exim4-daemon-light': ensure => purged }
+
+package { 'postfix':
+  ensure => present,
+}
+
+service { 'postfix':
+  ensure => running,
+  restart => 'postfix reload',
+  require => Package['postfix'],
+}
+
+file { '/etc/postfix': ensure => directory }
+
+file { '/etc/postfix/main.cf':
+  ensure => present,
+  content => "\
+biff = no
+mynetworks_style = host",
+  notify => Service['postfix'],
+}
