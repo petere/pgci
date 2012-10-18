@@ -1,3 +1,5 @@
+Package { ensure => installed }
+
 class { 'jenkins': }
 class { 'jenkins::git': }
 
@@ -56,9 +58,7 @@ JENKINS_ARGS="--webroot=/var/cache/jenkins/war --httpPort=$HTTP_PORT --ajp13Port
   before => Class["jenkins::service"],
 }
 
-package { 'icinga':
-  ensure => present,
-}
+package { 'icinga': }
 
 service { 'icinga':
   ensure => running,
@@ -95,13 +95,9 @@ nagios_service { 'check_http_jenkins_svc':
   require => Nagios_Command['check_http_jenkins'],
 }
 
-package { 'exim4-base': ensure => purged }
-package { 'exim4-config': ensure => purged }
-package { 'exim4-daemon-light': ensure => purged }
+package { ['exim4-base', 'exim4-config', 'exim4-daemon-light']: ensure => purged }
 
-package { 'postfix':
-  ensure => present,
-}
+package { 'postfix': }
 
 service { 'postfix':
   ensure => running,
