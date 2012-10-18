@@ -2,6 +2,7 @@ Package { ensure => installed }
 
 class { 'jenkins': }
 class { 'jenkins::git': }
+package { 'git': }
 
 # needed to run git inside jenkins
 # see https://github.com/jenkinsci/jenkins/pull/591
@@ -116,3 +117,37 @@ mynetworks_style = host",
 }
 
 package { 'ntp': }
+
+
+# Build dependencies
+
+$build_deps = [ 'bison',
+                'flex',
+                'gcc',
+                'gettext',
+                'libedit-dev',
+                'libkrb5-dev',
+                'libldap2-dev',
+                'libossp-uuid-dev',
+                'libpam-dev',
+                'libperl-dev',
+                'libreadline-dev',
+                'libssl-dev',
+                'libxml2-dev',
+                'libxslt1-dev',
+                'libz-dev',
+                'make',
+                'perl',
+                'python-dev',
+                'python3-dev',
+                'tcl-dev',
+
+                'docbook',
+                'docbook-dsssl',
+                'docbook-xsl',
+                'openjade1.3',
+                'opensp',
+                'xsltproc',
+                ]
+
+package { $build_deps: }
