@@ -114,3 +114,5 @@ biff = no
 mynetworks_style = host",
   notify => Service['postfix'],
 }
+
+package { 'ntp': }
