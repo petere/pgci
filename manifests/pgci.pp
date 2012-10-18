@@ -1,4 +1,5 @@
 class { 'jenkins': }
+class { 'jenkins::git': }
 class { 'apache': }
 class { 'apache::mod::proxy': }
 class { 'apache::mod::proxy_http': }
