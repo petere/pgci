@@ -1,5 +1,14 @@
 class { 'jenkins': }
 class { 'jenkins::git': }
+
+# needed to run git inside jenkins
+# see https://github.com/jenkinsci/jenkins/pull/591
+user { 'jenkins':
+  comment => 'Jenkins',
+  require => Class['jenkins::package'],
+  before => Class['jenkins::service'],
+}
+
 class { 'apache': }
 class { 'apache::mod::proxy': }
 class { 'apache::mod::proxy_http': }
