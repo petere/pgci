@@ -12,6 +12,19 @@ user { 'jenkins':
   before => Class['jenkins::service'],
 }
 
+install-jenkins-plugin { 'configurationslicing':
+  name => 'configurationslicing',
+}
+install-jenkins-plugin { 'timestamper':
+  name => 'timestamper',
+}
+install-jenkins-plugin { 'thinBackup':
+  name => 'thinBackup',
+}
+install-jenkins-plugin { 'ws-cleanup':
+  name => 'ws-cleanup',
+}
+
 class { 'apache': }
 class { 'apache::mod::proxy': }
 class { 'apache::mod::proxy_http': }
