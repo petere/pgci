@@ -109,6 +109,23 @@ nagios_service { 'check_http_jenkins_svc':
   require => Nagios_Command['check_http_jenkins'],
 }
 
+package { ['munin', 'munin-node']: }
+
+file { '/etc/munin/apache.conf':
+  ensure => present,
+  content => "\
+Alias /munin /var/cache/munin/www
+<Directory /var/cache/munin/www>
+    Allow from all
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresDefault M310
+    </IfModule>
+</Directory>",
+  notify => Service['httpd'],
+  require => Package['munin'],
+}
+
 package { ['exim4-base', 'exim4-config', 'exim4-daemon-light']: ensure => purged }
 
 package { 'postfix': }
