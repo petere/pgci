@@ -156,12 +156,62 @@ nagios_command { 'check_http_jenkins':
   command_line => "/usr/lib/nagios/plugins/check_http -H '\$HOSTADDRESS\$' -I '\$HOSTADDRESS\$' -u 'http://localhost/jenkins' -f follow -s 'Dashboard'",
 }
 
+nagios_command { 'check_mailq':
+  command_line => "/usr/lib/nagios/plugins/check_mailq -w 10 -c 20 -M postfix",
+}
+
+nagios_command { 'check_ntp_time':
+  command_line => "/usr/lib/nagios/plugins/check_ntp_time -H 0.debian.pool.ntp.org -w 0.5 -c 1",
+}
+
+nagios_command { 'check_swap':
+  command_line => "/usr/lib/nagios/plugins/check_swap -w 90% -c 50%",
+}
+
+nagios_service { 'check_https':
+  use => 'generic-service',
+  host_name => 'localhost',
+  service_description => 'HTTPS',
+  check_command => 'check_https',
+}
+
 nagios_service { 'check_http_jenkins_svc':
   use => 'generic-service',
   host_name => 'localhost',
   service_description => 'HTTP Jenkins',
   check_command => 'check_http_jenkins',
   require => Nagios_Command['check_http_jenkins'],
+}
+
+nagios_service { 'check_apt':
+  use => 'generic-service',
+  host_name => 'localhost',
+  service_description => 'APT',
+  check_command => 'check_apt_distupgrade',
+}
+
+nagios_service { 'check_mailq_svc':
+  use => 'generic-service',
+  host_name => 'localhost',
+  service_description => 'Mail queue',
+  check_command => 'check_mailq',
+  require => Nagios_Command['check_mailq'],
+}
+
+nagios_service { 'check_ntp_time_svc':
+  use => 'generic-service',
+  host_name => 'localhost',
+  service_description => 'NTP',
+  check_command => 'check_ntp_time',
+  require => Nagios_Command['check_ntp_time'],
+}
+
+nagios_service { 'check_swap_svc':
+  use => 'generic-service',
+  host_name => 'localhost',
+  service_description => 'Swap',
+  check_command => 'check_swap',
+  require => Nagios_Command['check_swap'],
 }
 
 package { ['munin', 'munin-node']: }
