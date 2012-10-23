@@ -286,3 +286,5 @@ $build_deps = [ 'bison',
                 ]
 
 package { $build_deps: }
+
+package { 'ccache': }
