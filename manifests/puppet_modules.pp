@@ -1,11 +1,11 @@
-exec { 'jenkins':
-  path => ['/usr/bin', '/bin'],
-  command => 'puppet module install rafaelfc/jenkins',
-  creates => '/etc/puppet/modules/jenkins/',
+define puppetmodule ($user = 'puppetlabs') {
+  exec { "$name":
+    path => ['/usr/bin', '/bin'],
+    command => "puppet module install $user/$name",
+    creates => "/etc/puppet/modules/$name/",
+  }
 }
 
-exec { 'apache':
-  path => ['/usr/bin', '/bin'],
-  command => 'puppet module install puppetlabs/apache',
-  creates => '/etc/puppet/modules/apache/',
-}
+puppetmodule { 'apache': }
+puppetmodule { 'apt': }
+puppetmodule { 'jenkins': user => 'rafaelfc' }
