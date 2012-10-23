@@ -53,6 +53,9 @@ user { 'jenkins':
 install-jenkins-plugin { 'configurationslicing':
   name => 'configurationslicing',
 }
+install-jenkins-plugin { 'htmlpublisher':
+  name => 'htmlpublisher',
+}
 install-jenkins-plugin { 'timestamper':
   name => 'timestamper',
 }
