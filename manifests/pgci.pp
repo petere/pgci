@@ -28,6 +28,7 @@ install-jenkins-plugin { 'ws-cleanup':
 class { 'apache': }
 class { 'apache::mod::proxy': }
 class { 'apache::mod::proxy_http': }
+class { 'apache::mod::ssl': }
 
 file { '/etc/apache2': ensure => directory }
 file { '/etc/apache2/conf.d': ensure => directory }
@@ -49,6 +50,19 @@ ProxyRequests     Off
 </Location>
 
 DocumentRoot /var/www",
+
+  notify => Service['httpd'],
+}
+
+file { '/etc/apache2/conf.d/pgci-ssl':
+  content => "\
+<VirtualHost _default_:443>
+  SSLEngine on
+  SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+  SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+  Include conf.d/pgci
+</VirtualHost>",
 
   notify => Service['httpd'],
 }
