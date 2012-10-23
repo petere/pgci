@@ -1,5 +1,43 @@
 Package { ensure => installed }
 
+file { "/etc/localtime":
+  source => "file:///usr/share/zoneinfo/UTC",
+}
+
+package { 'locales-all': }
+
+file { '/etc/default/locale':
+  content => "LANG=en_US.UTF-8\n",
+  require => Package['locales-all'],
+}
+
+file { '/etc/apt/sources.list':
+  ensure => absent,
+  notify => Exec['apt_update'],
+}
+
+apt::source { "debian":
+  location => "http://http.debian.net/debian/",
+}
+
+apt::source { "debian_security":
+  location => "http://security.debian.org/",
+  release => "$lsbdistcodename/updates",
+}
+
+file { '/etc/apt/apt.conf.d/02periodic':
+  content => "\
+APT::Periodic::Enable \"1\";
+APT::Periodic::Update-Package-Lists \"1\";
+APT::Periodic::Download-Upgradeable-Packages \"1\";
+APT::Periodic::AutocleanInterval \"1\";
+",
+}
+
+if $virtual == 'virtualbox' {
+  package { 'anacron': }
+}
+
 class { 'jenkins': }
 class { 'jenkins::git': }
 package { 'git': }
