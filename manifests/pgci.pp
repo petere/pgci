@@ -1,7 +1,11 @@
 Package { ensure => installed }
 
+file { '/etc/timezone':
+  content => 'Etc/UTC',
+}
+
 file { "/etc/localtime":
-  source => "file:///usr/share/zoneinfo/UTC",
+  source => "file:///usr/share/zoneinfo/Etc/UTC",
 }
 
 package { 'locales-all': }
@@ -24,6 +28,8 @@ apt::source { "debian_security":
   location => "http://security.debian.org/",
   release => "$lsbdistcodename/updates",
 }
+
+Exec['apt_update'] -> Package <| |>
 
 file { '/etc/apt/apt.conf.d/02periodic':
   content => "\
@@ -76,6 +82,7 @@ file { '/etc/apache2/conf.d': ensure => directory }
 
 file { '/etc/apache2/conf.d/pgci':
   content => "\
+<IfModule mod_proxy.c>
 ProxyPass         /jenkins  http://localhost:8080/jenkins
 ProxyPassReverse  /jenkins  http://localhost:8080/jenkins
 ProxyRequests     Off
@@ -89,6 +96,7 @@ ProxyRequests     Off
   Order deny,allow
   Allow from all
 </Location>
+</IfModule>
 
 DocumentRoot /var/www",
 
@@ -98,9 +106,11 @@ DocumentRoot /var/www",
 file { '/etc/apache2/conf.d/pgci-ssl':
   content => "\
 <VirtualHost _default_:443>
+<IfModule mod_ssl.c>
   SSLEngine on
   SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
   SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+</IfModule>
 
   Include conf.d/pgci
 </VirtualHost>",
@@ -131,25 +141,31 @@ package { 'icinga': }
 
 service { 'icinga':
   ensure => running,
+  require => Service['httpd'],
 }
 
 # http://projects.puppetlabs.com/issues/3299
 exec { 'fix_nagios_perms':
   command => '/bin/chmod 0644 /etc/icinga/objects/puppet.cfg',
+  before => Package['icinga'],
   notify => Service['icinga'],
   refreshonly => true,
+}
+
+file { ['/etc/icinga', '/etc/icinga/objects']:
+  ensure => directory,
 }
 
 Nagios_command {
   notify => Exec['fix_nagios_perms'],
   target => '/etc/icinga/objects/puppet.cfg',
-  require => Package['icinga'],
+  require => File['/etc/icinga/objects'],
 }
 
 Nagios_service {
   notify => Exec['fix_nagios_perms'],
   target => '/etc/icinga/objects/puppet.cfg',
-  require => Package['icinga'],
+  require => File['/etc/icinga/objects'],
 }
 
 nagios_command { 'check_http_jenkins':
@@ -173,6 +189,7 @@ nagios_service { 'check_https':
   host_name => 'localhost',
   service_description => 'HTTPS',
   check_command => 'check_https',
+  require => Service['httpd'],
 }
 
 nagios_service { 'check_http_jenkins_svc':
@@ -180,7 +197,8 @@ nagios_service { 'check_http_jenkins_svc':
   host_name => 'localhost',
   service_description => 'HTTP Jenkins',
   check_command => 'check_http_jenkins',
-  require => Nagios_Command['check_http_jenkins'],
+  require => [Nagios_command['check_http_jenkins'],
+              Service['httpd']],
 }
 
 nagios_service { 'check_apt':
@@ -188,6 +206,7 @@ nagios_service { 'check_apt':
   host_name => 'localhost',
   service_description => 'APT',
   check_command => 'check_apt_distupgrade',
+  require => Exec['apt_update'],
 }
 
 nagios_service { 'check_mailq_svc':
@@ -195,7 +214,8 @@ nagios_service { 'check_mailq_svc':
   host_name => 'localhost',
   service_description => 'Mail queue',
   check_command => 'check_mailq',
-  require => Nagios_Command['check_mailq'],
+  require => [Nagios_command['check_mailq'],
+              Service['postfix']],
 }
 
 nagios_service { 'check_ntp_time_svc':
@@ -203,7 +223,8 @@ nagios_service { 'check_ntp_time_svc':
   host_name => 'localhost',
   service_description => 'NTP',
   check_command => 'check_ntp_time',
-  require => Nagios_Command['check_ntp_time'],
+  require => [Nagios_command['check_ntp_time'],
+              Service['ntp']],
 }
 
 nagios_service { 'check_swap_svc':
@@ -211,7 +232,7 @@ nagios_service { 'check_swap_svc':
   host_name => 'localhost',
   service_description => 'Swap',
   check_command => 'check_swap',
-  require => Nagios_Command['check_swap'],
+  require => Nagios_command['check_swap'],
 }
 
 package { ['munin', 'munin-node']: }
@@ -252,6 +273,11 @@ mynetworks_style = host",
 }
 
 package { 'ntp': }
+service { 'ntp':
+  ensure => running,
+  restart => '/etc/init.d/ntp reload',
+  require => Package['ntp'],
+}
 
 
 # Build dependencies
@@ -264,13 +290,13 @@ $build_deps = [ 'bison',
                 'libkrb5-dev',
                 'libldap2-dev',
                 'libossp-uuid-dev',
-                'libpam-dev',
+                'libpam0g-dev',
                 'libperl-dev',
                 'libreadline-dev',
                 'libssl-dev',
                 'libxml2-dev',
                 'libxslt1-dev',
-                'libz-dev',
+                'zlib1g-dev',
                 'make',
                 'perl',
                 'python-dev',
