@@ -258,7 +258,6 @@ package { 'postfix': }
 
 service { 'postfix':
   ensure => running,
-  restart => 'postfix reload',
   require => Package['postfix'],
 }
 
@@ -268,6 +267,7 @@ file { '/etc/postfix/main.cf':
   ensure => present,
   content => "\
 biff = no
+inet_protocols = all
 mynetworks_style = host",
   notify => Service['postfix'],
 }
