@@ -2,5 +2,3 @@
 make world
 make maintainer-check
 make check-world
-make clean
-make distcheck
