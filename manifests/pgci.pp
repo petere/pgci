@@ -162,6 +162,12 @@ Nagios_command {
   require => File['/etc/icinga/objects'],
 }
 
+Nagios_host {
+  notify => Exec['fix_nagios_perms'],
+  target => '/etc/icinga/objects/puppet.cfg',
+  require => File['/etc/icinga/objects'],
+}
+
 Nagios_service {
   notify => Exec['fix_nagios_perms'],
   target => '/etc/icinga/objects/puppet.cfg',
@@ -184,9 +190,22 @@ nagios_command { 'check_swap':
   command_line => "/usr/lib/nagios/plugins/check_swap -w 90% -c 50%",
 }
 
+nagios_host { $hostname:
+  use => 'generic-host',
+  address => $ipaddress,
+}
+
+nagios_service { 'check_http':
+  use => 'generic-service',
+  host_name => $hostname,
+  service_description => 'HTTP',
+  check_command => 'check_http',
+  require => Service['httpd'],
+}
+
 nagios_service { 'check_https':
   use => 'generic-service',
-  host_name => 'localhost',
+  host_name => $hostname,
   service_description => 'HTTPS',
   check_command => 'check_https',
   require => Service['httpd'],
@@ -194,7 +213,7 @@ nagios_service { 'check_https':
 
 nagios_service { 'check_http_jenkins_svc':
   use => 'generic-service',
-  host_name => 'localhost',
+  host_name => $hostname,
   service_description => 'HTTP Jenkins',
   check_command => 'check_http_jenkins',
   require => [Nagios_command['check_http_jenkins'],
