@@ -45,7 +45,6 @@ if $virtual == 'virtualbox' {
 }
 
 class { 'jenkins': }
-class { 'jenkins::git': }
 package { 'git': }
 
 # needed to run git inside jenkins
@@ -56,21 +55,12 @@ user { 'jenkins':
   before => Class['jenkins::service'],
 }
 
-install-jenkins-plugin { 'configurationslicing':
-  name => 'configurationslicing',
-}
-install-jenkins-plugin { 'htmlpublisher':
-  name => 'htmlpublisher',
-}
-install-jenkins-plugin { 'timestamper':
-  name => 'timestamper',
-}
-install-jenkins-plugin { 'thinBackup':
-  name => 'thinBackup',
-}
-install-jenkins-plugin { 'ws-cleanup':
-  name => 'ws-cleanup',
-}
+jenkins::plugin { 'configurationslicing': }
+jenkins::plugin { 'git': }
+jenkins::plugin { 'htmlpublisher': }
+jenkins::plugin { 'timestamper': }
+jenkins::plugin { 'thinBackup': }
+jenkins::plugin { 'ws-cleanup': }
 
 class { 'apache': }
 class { 'apache::mod::proxy': }

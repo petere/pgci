@@ -12,11 +12,8 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.provision :puppet do |puppet|
-    puppet.manifest_file = "puppet_modules.pp"
-  end
-
-  config.vm.provision :puppet do |puppet|
     puppet.manifest_file = "pgci.pp"
+    puppet.module_path = "modules"
   end
 
   config.vm.share_folder "pgci", "/srv/pgci", "."
