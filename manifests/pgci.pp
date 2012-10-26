@@ -200,7 +200,8 @@ nagios_service { 'check_http':
   host_name => $hostname,
   service_description => 'HTTP',
   check_command => 'check_http',
-  require => Service['httpd'],
+  require => [Nagios_host[$hostname],
+              Service['httpd']],
 }
 
 nagios_service { 'check_https':
@@ -208,7 +209,8 @@ nagios_service { 'check_https':
   host_name => $hostname,
   service_description => 'HTTPS',
   check_command => 'check_https',
-  require => Service['httpd'],
+  require => [Nagios_host[$hostname],
+              Service['httpd']],
 }
 
 nagios_service { 'check_http_jenkins_svc':
@@ -217,6 +219,7 @@ nagios_service { 'check_http_jenkins_svc':
   service_description => 'HTTP Jenkins',
   check_command => 'check_http_jenkins',
   require => [Nagios_command['check_http_jenkins'],
+              Nagios_host[$hostname],
               Service['httpd']],
 }
 
