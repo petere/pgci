@@ -318,6 +318,8 @@ $build_deps = [ 'bison',
                 'python3-dev',
                 'tcl-dev',
 
+                'lcov',
+
                 'docbook',
                 'docbook-dsssl',
                 'docbook-xsl',
