@@ -56,11 +56,14 @@ user { 'jenkins':
 }
 
 jenkins::plugin { 'configurationslicing': }
+jenkins::plugin { 'depgraph-view': }
 jenkins::plugin { 'git': }
 jenkins::plugin { 'htmlpublisher': }
 jenkins::plugin { 'timestamper': }
 jenkins::plugin { 'thinBackup': }
 jenkins::plugin { 'ws-cleanup': }
+
+package { 'graphviz': }  # for depgraph-view
 
 class { 'apache': }
 class { 'apache::mod::proxy': }
