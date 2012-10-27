@@ -1,0 +1,74 @@
+define command {
+	command_name                   check_mailq
+	command_line                   /usr/lib/nagios/plugins/check_mailq -w 10 -c 20 -M postfix
+}
+
+define command {
+	command_name                   check_http_jenkins
+	command_line                   /usr/lib/nagios/plugins/check_http -H '$HOSTADDRESS$' -I '$HOSTADDRESS$' -u 'http://localhost/jenkins' -f follow -s 'Dashboard'
+}
+
+define command {
+	command_name                   check_ntp_time
+	command_line                   /usr/lib/nagios/plugins/check_ntp_time -H 0.debian.pool.ntp.org -w 0.5 -c 1
+}
+
+define command {
+	command_name                   check_swap
+	command_line                   /usr/lib/nagios/plugins/check_swap -w 90% -c 50%
+}
+
+define service {
+	check_command                  check_swap
+	host_name                      localhost
+	use                            generic-service
+	service_description            Swap
+}
+
+define service {
+	check_command                  check_apt_distupgrade
+	host_name                      localhost
+	use                            generic-service
+	service_description            APT
+}
+
+define service {
+	check_command                  check_mailq
+	host_name                      localhost
+	use                            generic-service
+	service_description            Mail queue
+}
+
+define service {
+	check_command                  check_ntp_time
+	host_name                      localhost
+	use                            generic-service
+	service_description            NTP
+}
+
+define service {
+	check_command                  check_http
+	host_name                      <%= hostname %>
+	use                            generic-service
+	service_description            HTTP
+}
+
+define service {
+	check_command                  check_http_jenkins
+	host_name                      <%= hostname %>
+	use                            generic-service
+	service_description            HTTP Jenkins
+}
+
+define service {
+	check_command                  check_https
+	host_name                      <%= hostname %>
+	use                            generic-service
+	service_description            HTTPS
+}
+
+define host {
+	address                        <%= ipaddress %>
+	host_name                      <%= hostname %>
+	use                            generic-host
+}
