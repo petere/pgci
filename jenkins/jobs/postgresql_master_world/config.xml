@@ -22,14 +22,17 @@
     <recursiveSubmodules>false</recursiveSubmodules>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <authorOrCommitter>false</authorOrCommitter>
-    <clean>false</clean>
+    <clean>true</clean>
     <wipeOutWorkspace>false</wipeOutWorkspace>
     <pruneBranches>false</pruneBranches>
-    <remotePoll>false</remotePoll>
+    <remotePoll>true</remotePoll>
     <ignoreNotifyCommit>false</ignoreNotifyCommit>
-    <useShallowClone>false</useShallowClone>
+    <useShallowClone>true</useShallowClone>
     <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
     <gitTool>Default</gitTool>
+    <browser class="hudson.plugins.git.browser.GitWeb">
+      <url>http://git.postgresql.org/gitweb/?p=postgresql.git</url>
+    </browser>
     <submoduleCfg class="list"/>
     <relativeTargetDir></relativeTargetDir>
     <reference></reference>
@@ -78,9 +81,6 @@
     </hudson.tasks.BuildTrigger>
   </publishers>
   <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.10">
-      <deleteDirs>false</deleteDirs>
-    </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.3.2"/>
   </buildWrappers>
 </project>
