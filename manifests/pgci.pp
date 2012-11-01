@@ -58,6 +58,7 @@ user { 'jenkins':
 jenkins::plugin { 'configurationslicing': }
 jenkins::plugin { 'depgraph-view': }
 jenkins::plugin { 'git': }
+jenkins::plugin { 'googleanalytics': }
 jenkins::plugin { 'htmlpublisher': }
 jenkins::plugin { 'timestamper': }
 jenkins::plugin { 'thinBackup': }
