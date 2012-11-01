@@ -24,6 +24,11 @@ apt::source { "debian":
   location => "http://http.debian.net/debian/",
 }
 
+apt::source { "debian_backports":
+  location => "http://http.debian.net/debian-backports/",
+  release => "$lsbdistcodename-backports",
+}
+
 apt::source { "debian_security":
   location => "http://security.debian.org/",
   release => "$lsbdistcodename/updates",
