@@ -49,6 +49,10 @@ if $virtual == 'virtualbox' {
   package { 'anacron': }
 }
 
+package { ['samba', 'smbfs']: ensure => purged }
+
+package { ['deborphan']: }
+
 class { 'jenkins': }
 package { 'git': }
 
@@ -154,6 +158,7 @@ Alias /munin /var/cache/munin/www
 }
 
 package { ['exim4-base', 'exim4-config', 'exim4-daemon-light']: ensure => purged }
+package { ['sendmail-base', 'sendmail-bin', 'sendmail-cf', 'sendmail-doc']: ensure => purged }
 
 package { 'postfix': }
 
