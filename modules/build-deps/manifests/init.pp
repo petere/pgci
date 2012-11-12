@@ -24,10 +24,14 @@ class build-deps {
                   'lcov',
 
                   'docbook',
+                  'docbook2x',
                   'docbook-dsssl',
                   'docbook-xsl',
+                  'fop',
+                  'jadetex',
                   'openjade1.3',
                   'opensp',
+                  'texinfo',
                   'xsltproc',
                   ]
 
@@ -37,6 +41,19 @@ class build-deps {
 
     'ccache':
       ensure => installed;
+  }
+
+  file { '/etc/texmf/texmf.d/96JadeTeX.cnf':
+    ensure => present,
+    source => 'puppet:///modules/build-deps/jadetex.cnf',
+    owner => root,
+    group => root,
+    notify => Exec['update-texmf'],
+  }
+
+  exec { 'update-texmf':
+    path => ['/usr/bin', '/usr/sbin', '/bin', '/sbin'],
+    refreshonly => true,
   }
 
 }

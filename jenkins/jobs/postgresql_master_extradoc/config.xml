@@ -22,7 +22,7 @@
     <recursiveSubmodules>false</recursiveSubmodules>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <authorOrCommitter>false</authorOrCommitter>
-    <clean>true</clean>
+    <clean>false</clean>
     <wipeOutWorkspace>false</wipeOutWorkspace>
     <pruneBranches>false</pruneBranches>
     <remotePoll>true</remotePoll>
@@ -30,9 +30,6 @@
     <useShallowClone>true</useShallowClone>
     <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
     <gitTool>Default</gitTool>
-    <browser class="hudson.plugins.git.browser.GitWeb">
-      <url>http://git.postgresql.org/gitweb/?p=postgresql.git</url>
-    </browser>
     <submoduleCfg class="list"/>
     <relativeTargetDir></relativeTargetDir>
     <reference></reference>
@@ -47,23 +44,23 @@
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers class="vector">
-    <hudson.triggers.SCMTrigger>
-      <spec>*/10 * * * *</spec>
-    </hudson.triggers.SCMTrigger>
-  </triggers>
+  <blockBuildWhenUpstreamBuilding>true</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>. /srv/pgci/jobhelpers/postgresql-build.sh</command>
+      <command>. /srv/pgci/jobhelpers/postgresql-extradoc.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>doc/src/sgml/*.pdf doc/src/sgml/*.info</artifacts>
+      <latestOnly>true</latestOnly>
+    </hudson.tasks.ArtifactArchiver>
     <htmlpublisher.HtmlPublisher plugin="htmlpublisher@1.0">
       <reportTargets>
         <htmlpublisher.HtmlPublisherTarget>
-          <reportName>Documentation</reportName>
+          <reportName>Documentation (XSLT)</reportName>
           <reportDir>doc/src/sgml/html/</reportDir>
           <reportFiles>index.html</reportFiles>
           <keepAll>false</keepAll>
@@ -71,14 +68,6 @@
         </htmlpublisher.HtmlPublisherTarget>
       </reportTargets>
     </htmlpublisher.HtmlPublisher>
-    <hudson.tasks.BuildTrigger>
-      <childProjects>postgresql_master_coverage, postgresql_master_dist, postgresql_master_extradoc</childProjects>
-      <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
-      </threshold>
-    </hudson.tasks.BuildTrigger>
   </publishers>
   <buildWrappers>
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.3.2"/>
