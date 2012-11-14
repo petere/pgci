@@ -43,6 +43,10 @@ class build-deps {
       ensure => installed;
   }
 
+  file { ['/etc/texmf', '/etc/texmf/texmf.d']:
+    ensure => directory,
+  }
+
   file { '/etc/texmf/texmf.d/96JadeTeX.cnf':
     ensure => present,
     source => 'puppet:///modules/build-deps/jadetex.cnf',
