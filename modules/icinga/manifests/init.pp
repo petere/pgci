@@ -19,6 +19,6 @@ class icinga {
   service {
     'icinga':
       ensure => running,
-      require => Service['httpd', 'ntp', 'postfix'],
+      require => Service['httpd', 'postfix'],
   }
 }

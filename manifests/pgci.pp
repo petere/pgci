@@ -178,11 +178,13 @@ mynetworks_style = host",
   notify => Service['postfix'],
 }
 
-package { 'ntp': }
-service { 'ntp':
-  ensure => running,
-  restart => '/etc/init.d/ntp reload',
-  require => Package['ntp'],
+if $virtual != 'openvzve' {
+  package { 'ntp': }
+  service { 'ntp':
+    ensure => running,
+    restart => '/etc/init.d/ntp reload',
+    require => Package['ntp'],
+  }
 }
 
 class { 'build-deps': }
