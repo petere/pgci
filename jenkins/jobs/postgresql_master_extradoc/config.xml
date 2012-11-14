@@ -57,7 +57,7 @@
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>doc/src/sgml/*.pdf doc/src/sgml/*.info</artifacts>
+      <artifacts>doc/src/sgml/*.pdf,doc/src/sgml/*.info</artifacts>
       <latestOnly>true</latestOnly>
     </hudson.tasks.ArtifactArchiver>
     <htmlpublisher.HtmlPublisher plugin="htmlpublisher@1.0">
