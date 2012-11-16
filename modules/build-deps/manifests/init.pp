@@ -37,11 +37,19 @@ class build-deps {
 
   package {
     $build_deps:
-      ensure => installed;
+      ensure => latest;
 
     'ccache':
       ensure => installed;
   }
+
+
+  apt::pin { 'squeeze-backports':
+    packages => ['fop'],
+    priority => 500,
+    before => Package['fop'],
+  }
+
 
   file { ['/etc/texmf', '/etc/texmf/texmf.d']:
     ensure => directory,
