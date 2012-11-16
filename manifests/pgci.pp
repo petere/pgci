@@ -178,6 +178,19 @@ mynetworks_style = host",
   notify => Service['postfix'],
 }
 
+file { '/etc/hostname':
+  ensure => present,
+  content => "$fqdn\n",
+  notify => Exec['hostname'],
+}
+
+exec { 'hostname':
+  command => 'hostname -F /etc/hostname',
+  path => ['/bin', '/usr/bin'],
+  refreshonly => true,
+  notify => Service['postfix'],
+}
+
 if $virtual != 'openvzve' {
   package { 'ntp': }
   service { 'ntp':
