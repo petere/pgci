@@ -172,6 +172,7 @@ file { '/etc/postfix': ensure => directory }
 file { '/etc/postfix/main.cf':
   ensure => present,
   content => "\
+append_dot_mydomain = no
 biff = no
 inet_protocols = all
 mynetworks_style = host",
