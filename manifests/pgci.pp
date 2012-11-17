@@ -69,6 +69,7 @@ jenkins::plugin { 'depgraph-view': }
 jenkins::plugin { 'git': }
 jenkins::plugin { 'googleanalytics': }
 jenkins::plugin { 'htmlpublisher': }
+jenkins::plugin { 'text-finder': }
 jenkins::plugin { 'timestamper': }
 jenkins::plugin { 'thinBackup': }
 jenkins::plugin { 'ws-cleanup': }
