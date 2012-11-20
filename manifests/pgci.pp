@@ -1,7 +1,7 @@
 Package { ensure => installed }
 
 file { '/etc/timezone':
-  content => 'Etc/UTC',
+  content => "Etc/UTC\n",
 }
 
 file { "/etc/localtime":
@@ -102,7 +102,8 @@ ProxyRequests     Off
 </Location>
 </IfModule>
 
-DocumentRoot /var/www",
+DocumentRoot /var/www
+",
 
   notify => Service['httpd'],
 }
@@ -117,7 +118,8 @@ file { '/etc/apache2/conf.d/pgci-ssl':
 </IfModule>
 
   Include conf.d/pgci
-</VirtualHost>",
+</VirtualHost>
+",
 
   notify => Service['httpd'],
 }
@@ -153,7 +155,8 @@ Alias /munin /var/cache/munin/www
         ExpiresActive On
         ExpiresDefault M310
     </IfModule>
-</Directory>",
+</Directory>
+",
   notify => Service['httpd'],
   require => Package['munin'],
 }
@@ -176,7 +179,8 @@ file { '/etc/postfix/main.cf':
 append_dot_mydomain = no
 biff = no
 inet_protocols = all
-mynetworks_style = host",
+mynetworks_style = host
+",
   notify => Service['postfix'],
 }
 
