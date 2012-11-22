@@ -33,6 +33,8 @@ class build-deps {
                   'opensp',
                   'texinfo',
                   'xsltproc',
+
+                  'python-docutils', # for pghashlib
                   ]
 
   package {
