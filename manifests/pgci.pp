@@ -65,6 +65,7 @@ user { 'jenkins':
 }
 
 jenkins::plugin { 'configurationslicing': }
+jenkins::plugin { 'copyartifact': }
 jenkins::plugin { 'depgraph-view': }
 jenkins::plugin { 'git': }
 jenkins::plugin { 'googleanalytics': }
