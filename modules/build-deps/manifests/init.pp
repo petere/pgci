@@ -19,6 +19,7 @@ class build-deps {
                   'perl',
                   'python-dev',
                   'python3-dev',
+                  'systemtap-sdt-dev',
                   'tcl-dev',
 
                   'lcov',
