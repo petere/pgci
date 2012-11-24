@@ -152,6 +152,26 @@ JENKINS_ARGS="--webroot=/var/cache/jenkins/war --httpPort=$HTTP_PORT --ajp13Port
   before => Class["jenkins::service"],
 }
 
+file { '/var/lib/jenkins':
+  ensure => directory,
+  recurse => remote,
+  source => '/srv/pgci/jenkins',
+  owner => jenkins,
+  group => jenkins,
+  notify => Notify['jenkins-reload'],
+}
+
+# to override jenkins plugin
+file { '/var/lib/jenkins/plugins':
+  ensure => directory,
+  owner => jenkins,
+  group => jenkins,
+}
+
+notify { 'jenkins-reload':
+  message => 'Reload configuration from disk in Jenkins'
+}
+
 package { ['munin', 'munin-node']: }
 
 file { '/etc/munin/apache.conf':
