@@ -70,6 +70,7 @@ group { 'jenkins':
   system => true,
 }
 
+jenkins::plugin { 'analysis-core': }
 jenkins::plugin { 'configurationslicing': }
 jenkins::plugin { 'copyartifact': }
 jenkins::plugin { 'depgraph-view': }
@@ -79,6 +80,7 @@ jenkins::plugin { 'htmlpublisher': }
 jenkins::plugin { 'text-finder': }
 jenkins::plugin { 'timestamper': }
 jenkins::plugin { 'thinBackup': }
+jenkins::plugin { 'warnings': }
 jenkins::plugin { 'ws-cleanup': }
 
 package { 'graphviz': }  # for depgraph-view
