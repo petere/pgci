@@ -60,8 +60,14 @@ package { 'git': }
 # see https://github.com/jenkinsci/jenkins/pull/591
 user { 'jenkins':
   comment => 'Jenkins',
+  gid => 'jenkins',
+  system => true,
   require => Class['jenkins::package'],
   before => Class['jenkins::service'],
+}
+
+group { 'jenkins':
+  system => true,
 }
 
 jenkins::plugin { 'configurationslicing': }
