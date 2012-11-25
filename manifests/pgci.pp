@@ -160,7 +160,6 @@ file { '/var/lib/jenkins':
   source => '/srv/pgci/jenkins',
   owner => jenkins,
   group => jenkins,
-  notify => Notify['jenkins-reload'],
 }
 
 # to override jenkins plugin
@@ -168,10 +167,6 @@ file { '/var/lib/jenkins/plugins':
   ensure => directory,
   owner => jenkins,
   group => jenkins,
-}
-
-notify { 'jenkins-reload':
-  message => 'Reload configuration from disk in Jenkins'
 }
 
 package { ['munin', 'munin-node']: }
