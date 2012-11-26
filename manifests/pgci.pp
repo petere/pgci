@@ -93,6 +93,15 @@ class { 'apache::mod::ssl': }
 file { '/etc/apache2': ensure => directory }
 file { '/etc/apache2/conf.d': ensure => directory }
 
+file { '/etc/apache2/ports.conf':
+  content => "\
+Listen 80
+Listen 443
+",
+
+  notify => Service['httpd'],
+}
+
 file { '/etc/apache2/conf.d/pgci':
   content => "\
 <IfModule mod_proxy.c>
