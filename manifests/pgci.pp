@@ -89,6 +89,7 @@ class { 'apache': }
 class { 'apache::mod::proxy': }
 class { 'apache::mod::proxy_http': }
 class { 'apache::mod::ssl': }
+apache::mod { 'rewrite': }
 
 file { '/etc/apache2': ensure => directory }
 file { '/etc/apache2/conf.d': ensure => directory }
@@ -121,6 +122,9 @@ ProxyRequests     Off
 </IfModule>
 
 DocumentRoot /var/www
+
+RewriteEngine on
+RewriteRule ^/$ jenkins/ [R]
 ",
 
   notify => Service['httpd'],
