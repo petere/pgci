@@ -12,6 +12,11 @@ if grep -qw maintainer-check GNUmakefile; then
 	make -k maintainer-check
 fi
 
+if [ -e src/tools/pginclude/cpluspluscheck ]; then
+	sh src/tools/pginclude/cpluspluscheck >cpluspluscheck.out 2>&1
+	[ -s cpluspluscheck.out ] && echo unstable | md5sum
+fi
+
 if grep -qw check-world GNUmakefile; then
 	make -k check-world || echo unstable | md5sum
 else
