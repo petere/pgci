@@ -18,13 +18,14 @@ class ferm {
       owner   => 'root',
       group   => 'adm',
       mode    => 'u=rw,go=r',
-      notify  => Service['ferm'],
+      notify  => Exec['ferm-reload'],
       source  => 'puppet:///modules/ferm/ferm.conf';
   }
 
-  service {
-    'ferm':
-      ensure => running,
+  exec {
+    'ferm-reload':
+      command => '/etc/init.d/ferm reload',
+      refreshonly => true,
       require => Package['ferm'],
   }
 }
