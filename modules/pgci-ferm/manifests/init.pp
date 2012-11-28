@@ -1,4 +1,4 @@
-class ferm {
+class pgci-ferm {
 
   package {
     'ferm':
@@ -19,7 +19,7 @@ class ferm {
       group   => 'adm',
       mode    => 'u=rw,go=r',
       notify  => Exec['ferm-reload'],
-      source  => 'puppet:///modules/ferm/ferm.conf';
+      source  => 'puppet:///modules/pgci-ferm/ferm.conf';
   }
 
   exec {

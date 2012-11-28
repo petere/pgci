@@ -1,4 +1,4 @@
-class build-deps {
+class pgci-build-deps {
 
   $build_deps = [ 'bison',
                   'flex',
@@ -60,7 +60,7 @@ class build-deps {
 
   file { '/etc/texmf/texmf.d/96JadeTeX.cnf':
     ensure => present,
-    source => 'puppet:///modules/build-deps/jadetex.cnf',
+    source => 'puppet:///modules/pgci-build-deps/jadetex.cnf',
     owner => root,
     group => root,
     notify => Exec['update-texmf'],

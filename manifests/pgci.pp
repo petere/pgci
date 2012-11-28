@@ -245,9 +245,9 @@ if $virtual != 'openvzve' {
   }
 }
 
-class { 'build-deps': }
-class { 'ferm': }
-class { 'icinga': }
+class { 'pgci-build-deps': }
+class { 'pgci-ferm': }
+class { 'pgci-icinga': }
 
 # interferes with facter
 package { 'procinfo':

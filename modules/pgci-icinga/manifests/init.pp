@@ -1,4 +1,4 @@
-class icinga {
+class pgci-icinga {
 
   package {
     'icinga':
@@ -12,7 +12,7 @@ class icinga {
 
     '/etc/icinga/objects/pgci.cfg':
       ensure => present,
-      content => template('icinga/pgci.cfg.erb'),
+      content => template('pgci-icinga/pgci.cfg.erb'),
       notify => Service['icinga'];
   }
 
