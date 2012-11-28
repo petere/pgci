@@ -248,3 +248,8 @@ if $virtual != 'openvzve' {
 class { 'build-deps': }
 class { 'ferm': }
 class { 'icinga': }
+
+# interferes with facter
+package { 'procinfo':
+  ensure => purged,
+}
