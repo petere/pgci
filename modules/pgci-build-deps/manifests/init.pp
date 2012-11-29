@@ -2,6 +2,7 @@ class pgci-build-deps {
 
   $build_deps = [ 'bison',
                   'flex',
+                  'g++',
                   'gcc',
                   'gettext',
                   'libedit-dev',
