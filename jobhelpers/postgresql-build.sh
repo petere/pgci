@@ -13,7 +13,7 @@ if grep -qw maintainer-check GNUmakefile; then
 fi
 
 if [ -e src/tools/pginclude/cpluspluscheck ]; then
-	sh src/tools/pginclude/cpluspluscheck >cpluspluscheck.out 2>&1
+	sh src/tools/pginclude/cpluspluscheck 2>&1 | tee cpluspluscheck.out
 	[ -s cpluspluscheck.out ] && echo unstable | md5sum
 fi
 
