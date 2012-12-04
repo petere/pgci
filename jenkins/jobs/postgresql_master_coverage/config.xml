@@ -54,7 +54,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>./configure --enable-coverage --enable-depend
-make
+make all coverage-clean
 make check
 make coverage-html</command>
     </hudson.tasks.Shell>
