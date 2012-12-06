@@ -115,7 +115,7 @@
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
     <hudson.tasks.BuildTrigger>
-      <childProjects>postgresql_master_coverage, postgresql_master_dist, postgresql_master_extradoc, plproxy, pgvihash, pg_logforward, pghashlib</childProjects>
+      <childProjects>postgresql_master_coverage, postgresql_master_dist, postgresql_master_extradoc, plproxy, pgvihash, pg_logforward, pghashlib, postgresql_master_linklint</childProjects>
       <threshold>
         <name>UNSTABLE</name>
         <ordinal>1</ordinal>

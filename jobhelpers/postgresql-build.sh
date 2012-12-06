@@ -23,9 +23,6 @@ else
 	make -k check || echo unstable | md5sum
 fi
 
-linklint -net -root doc/src/sgml -out linklint.out /@
-grep -q '^ERROR' linklint.out && echo unstable | md5sum
-
 majorversion=$(./configure --version | sed -n -r '1s/^.* ([0-9]+\.[0-9]+).*$/\1/p')
 make install DESTDIR=$PWD/postgresql-$majorversion.bin
 tar cJf postgresql-$majorversion.bin.tar.xz postgresql-$majorversion.bin/
