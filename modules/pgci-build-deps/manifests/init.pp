@@ -38,6 +38,7 @@ class pgci-build-deps {
                   'xsltproc',
 
                   'python-docutils', # for pghashlib
+                  'time',
                   ]
 
   package {
