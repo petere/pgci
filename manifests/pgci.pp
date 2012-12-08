@@ -71,6 +71,7 @@ group { 'jenkins':
 }
 
 jenkins::plugin { 'analysis-core': }
+jenkins::plugin { 'build-blocker-plugin': }
 jenkins::plugin { 'configurationslicing': }
 jenkins::plugin { 'copyartifact': }
 jenkins::plugin { 'depgraph-view': }
