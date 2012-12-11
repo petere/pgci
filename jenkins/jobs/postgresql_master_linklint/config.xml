@@ -60,10 +60,6 @@ linklint -concise_url -limit 3000 -net -root doc/src/sgml/html -skip &apos;/rele
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.tasks.ArtifactArchiver>
-      <artifacts>linklint.out</artifacts>
-      <latestOnly>false</latestOnly>
-    </hudson.tasks.ArtifactArchiver>
     <hudson.plugins.textfinder.TextFinderPublisher plugin="text-finder@1.9">
       <fileSet>linklint.out</fileSet>
       <regexp>ERROR</regexp>
