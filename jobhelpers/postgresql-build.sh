@@ -1,4 +1,10 @@
-./configure --enable-debug --enable-depend --enable-cassert --enable-dtrace --with-tcl --with-perl --with-python --with-krb5 --with-pam --with-ldap --with-openssl --with-libxml --with-libxslt --with-gssapi --enable-thread-safety --enable-nls --with-ossp-uuid --disable-rpath
+majorversion=$(./configure --version | sed -n -r '1s/^.* ([0-9]+\.[0-9]+).*$/\1/p')
+
+case $majorversion in
+	8.* | 9.[01] ) ;;
+	* ) fortify='CPPFLAGS=-D_FORTIFY_SOURCE=2';;
+esac
+./configure --enable-debug --enable-depend --enable-cassert --enable-dtrace --with-tcl --with-perl --with-python --with-krb5 --with-pam --with-ldap --with-openssl --with-libxml --with-libxslt --with-gssapi --enable-thread-safety --enable-nls --with-ossp-uuid --disable-rpath $fortify
 
 if grep -qw world GNUmakefile; then
 	make -k world
@@ -23,6 +29,5 @@ else
 	make -k check || echo unstable | md5sum
 fi
 
-majorversion=$(./configure --version | sed -n -r '1s/^.* ([0-9]+\.[0-9]+).*$/\1/p')
 make install DESTDIR=$PWD/postgresql-$majorversion.bin
 tar cJf postgresql-$majorversion.bin.tar.xz postgresql-$majorversion.bin/
