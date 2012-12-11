@@ -44,7 +44,7 @@
     <includedRegions></includedRegions>
     <scmName></scmName>
   </scm>
-  <quietPeriod>120</quietPeriod>
+  <quietPeriod>3600</quietPeriod>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
