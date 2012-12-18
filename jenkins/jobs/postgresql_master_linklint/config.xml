@@ -55,7 +55,7 @@
     <hudson.tasks.Shell>
       <command>test -f GNUmakefile || ./configure
 make -C doc/src/sgml html
-linklint -concise_url -limit 3000 -net -delay 3 -root doc/src/sgml/html -skip &apos;/release-#&apos; -out linklint.out /@
+linklint -concise_url -limit 3000 -net -delay 13 -root doc/src/sgml/html -skip &apos;/release-#&apos; -out linklint.out /@
 </command>
     </hudson.tasks.Shell>
   </builders>
