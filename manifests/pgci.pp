@@ -254,3 +254,5 @@ class { 'pgci-icinga': }
 package { 'procinfo':
   ensure => purged,
 }
+
+package { 'debian-goodies': }
