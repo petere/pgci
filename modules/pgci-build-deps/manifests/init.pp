@@ -37,6 +37,7 @@ class pgci-build-deps {
                   'texinfo',
                   'xsltproc',
 
+                  'curl',
                   'python-docutils', # for pghashlib
                   'time',
                   ]

@@ -3,7 +3,11 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.2">
+      <useBuildBlocker>false</useBuildBlocker>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+  </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@1.1.26">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
@@ -90,7 +94,7 @@
       </consoleParsers>
     </hudson.plugins.warnings.WarningsPublisher>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>**/regression.diffs,**/regression.out,postgresql-*.tar.*</artifacts>
+      <artifacts>**/regression.diffs,**/regression.out,postgresql-*.tar.*,doc/src/sgml/postgres.xml</artifacts>
       <latestOnly>false</latestOnly>
     </hudson.tasks.ArtifactArchiver>
     <hudson.plugins.textfinder.TextFinderPublisher plugin="text-finder@1.9">
@@ -115,7 +119,7 @@
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
     <hudson.tasks.BuildTrigger>
-      <childProjects>postgresql_master_coverage, postgresql_master_dist, postgresql_master_extradoc, plproxy, pgvihash, pg_logforward, pghashlib, postgresql_master_linklint</childProjects>
+      <childProjects>postgresql_master_coverage, postgresql_master_dist, postgresql_master_extradoc, plproxy, pgvihash, pg_logforward, pghashlib, postgresql_master_linklint, postgresql_master_linkcheck</childProjects>
       <threshold>
         <name>UNSTABLE</name>
         <ordinal>1</ordinal>
