@@ -40,6 +40,7 @@ class pgci-build-deps {
                   'curl',
                   'python-docutils', # for pghashlib
                   'time',
+                  'wget',
                   ]
 
   package {
