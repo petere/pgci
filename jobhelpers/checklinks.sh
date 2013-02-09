@@ -38,7 +38,8 @@ for url in $urls; do
 		sleep 1
 	fi
 
-	if out=$(curl --fail --location --max-time 30 --retry 5 --silent --show-error --output /dev/null "$url" 2>&1); then
+	if out=$(curl --head --fail --location --max-time 30 --retry 5 --silent --show-error --output /dev/null "$url" 2>&1 ||
+			curl --fail --location --max-time 30 --retry 5 --silent --show-error --output /dev/null "$url" 2>&1); then
 		echo "ok $i $url"
 	else
 		echo "not ok $i $url"
