@@ -94,7 +94,7 @@
       </consoleParsers>
     </hudson.plugins.warnings.WarningsPublisher>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>**/regression.diffs,**/regression.out,postgresql-*.tar.*,doc/src/sgml/postgres.xml</artifacts>
+      <artifacts>**/regression.diffs,**/regression.out,postgresql-*.tar.*,doc/src/sgml/postgres.xml,cpluspluscheck.out</artifacts>
       <latestOnly>false</latestOnly>
     </hudson.tasks.ArtifactArchiver>
     <hudson.plugins.textfinder.TextFinderPublisher plugin="text-finder@1.9">

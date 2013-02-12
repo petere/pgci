@@ -14,7 +14,11 @@ fi
 
 if [ -x src/tools/pginclude/cpluspluscheck ]; then
 	src/tools/pginclude/cpluspluscheck >cpluspluscheck.out 2>&1
-	[ -s cpluspluscheck.out ] && echo unstable | md5sum
+	if [ -s cpluspluscheck.out ]; then
+		echo unstable | md5sum
+	else
+		rm cpluspluscheck.out
+	fi
 fi
 
 if grep -qw check-world GNUmakefile; then
