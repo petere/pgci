@@ -25,6 +25,7 @@ class pgci-build-deps {
 
                   'lcov',
 
+                  'dbtoepub',
                   'docbook',
                   'docbook2x',
                   'docbook-dsssl',
