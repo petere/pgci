@@ -15,24 +15,32 @@ file { '/etc/default/locale':
   require => Package['locales-all'],
 }
 
-file { '/etc/apt/sources.list':
-  ensure => absent,
-  notify => Exec['apt_update'],
+
+if $lsbdistcodename == 'squeeze' {
+  # When using Debian squeeze, we need to set up the backports
+  # repository.  For other distributions, it might be best to leave
+  # the APT sources alone.
+
+  file { '/etc/apt/sources.list':
+    ensure => absent,
+    notify => Exec['apt_update'],
+  }
+
+  apt::source { "debian":
+    location => "http://http.debian.net/debian/",
+  }
+
+  apt::source { "debian_backports":
+    location => "http://http.debian.net/debian-backports/",
+    release => "$lsbdistcodename-backports",
+  }
+
+  apt::source { "debian_security":
+    location => "http://security.debian.org/",
+    release => "$lsbdistcodename/updates",
+  }
 }
 
-apt::source { "debian":
-  location => "http://http.debian.net/debian/",
-}
-
-apt::source { "debian_backports":
-  location => "http://http.debian.net/debian-backports/",
-  release => "$lsbdistcodename-backports",
-}
-
-apt::source { "debian_security":
-  location => "http://security.debian.org/",
-  release => "$lsbdistcodename/updates",
-}
 
 Exec['apt_update'] -> Package <| |>
 
