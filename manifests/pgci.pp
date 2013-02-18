@@ -246,7 +246,7 @@ if $fqdn != undef {
   }
 }
 else {
-  warning("no FQDN defined");
+  warning("no FQDN defined")
 }
 
 exec { 'hostname':
