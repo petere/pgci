@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd /var/lib/jenkins
+for file in $(
+find jobs \( -name 'fingerprints' -o -name 'builds' -o -name 'workspace' \) -prune -o -name '*.xml' -print | LC_COLLATE=C sort
+ls config.xml
+); do
+	diff -Nu -I '<disabled>' -I 'plugin=' /srv/pgci/jenkins/$file $file
+done
