@@ -36,9 +36,8 @@ apt::source { "debian_security":
 
 Exec['apt_update'] -> Package <| |>
 
-file { '/etc/apt/apt.conf.d/02periodic':
+file { '/etc/apt/apt.conf.d/10periodic':
   content => "\
-APT::Periodic::Enable \"1\";
 APT::Periodic::Update-Package-Lists \"1\";
 APT::Periodic::Download-Upgradeable-Packages \"1\";
 APT::Periodic::AutocleanInterval \"1\";
