@@ -8,11 +8,16 @@ file { "/etc/localtime":
   source => "file:///usr/share/zoneinfo/Etc/UTC",
 }
 
-package { 'locales-all': }
 
-file { '/etc/default/locale':
-  content => "LANG=en_US.UTF-8\n",
-  require => Package['locales-all'],
+if $operatingsystem == 'Debian' {
+  package { 'locales-all': }
+
+  file { '/etc/default/locale':
+    content => "LANG=en_US.UTF-8\n",
+    require => Package['locales-all'],
+  }
+
+  # FIXME: needs alternative way to set locale on other OS
 }
 
 
