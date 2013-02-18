@@ -66,6 +66,7 @@ user { 'jenkins':
 }
 
 group { 'jenkins':
+  ensure => present,
   system => true,
 }
 
