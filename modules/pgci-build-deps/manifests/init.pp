@@ -52,10 +52,12 @@ class pgci-build-deps {
   }
 
 
-  apt::pin { 'squeeze-backports':
-    packages => ['fop'],
-    priority => 500,
-    before => Package['fop'],
+  if $lsbdistcodename == 'squeeze' {
+    apt::pin { 'squeeze-backports':
+      packages => ['fop'],
+      priority => 500,
+      before => Package['fop'],
+    }
   }
 
 
@@ -69,6 +71,7 @@ class pgci-build-deps {
     owner => root,
     group => root,
     notify => Exec['update-texmf'],
+    require => Package['jadetex'],
   }
 
   exec { 'update-texmf':
