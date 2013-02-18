@@ -233,10 +233,15 @@ mynetworks_style = host
   notify => Service['postfix'],
 }
 
-file { '/etc/hostname':
-  ensure => present,
-  content => "$fqdn\n",
-  notify => Exec['hostname'],
+if $fqdn != undef {
+  file { '/etc/hostname':
+    ensure => present,
+    content => "$fqdn\n",
+    notify => Exec['hostname'],
+  }
+}
+else {
+  warning("no FQDN defined");
 }
 
 exec { 'hostname':
