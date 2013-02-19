@@ -7,7 +7,9 @@ run your own (or contribute to mine).
 
 ## Installation
 
-On a fresh Debian installation, clone the repository to `/srv/pgci`
+Installation is currently supported on Debian squeeze (6.0) and Ubuntu precise (12.04 LTS).
+
+On a fresh installation, clone the repository to `/srv/pgci`
 (this exact path is currently required; I'm working on a way to avoid
 that), and run
 
