@@ -54,7 +54,7 @@ class pgci-build-deps {
 
   if $lsbdistcodename == 'squeeze' {
     apt::pin { 'squeeze-backports':
-      packages => ['fop'],
+      packages => ['fop', 'libfop-java'],
       priority => 500,
       before => Package['fop'],
     }
