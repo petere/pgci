@@ -89,6 +89,7 @@ jenkins::plugin { 'configurationslicing': }
 jenkins::plugin { 'copyartifact': }
 jenkins::plugin { 'depgraph-view': }
 jenkins::plugin { 'git': }
+jenkins::plugin { 'git-client': }
 jenkins::plugin { 'googleanalytics': }
 jenkins::plugin { 'htmlpublisher': }
 jenkins::plugin { 'tap': }
