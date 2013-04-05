@@ -5,6 +5,15 @@ cat <<'EOF' >src/Makefile.custom
 	/usr/bin/time -v fop -fo $< -pdf $@
 EOF
 
+if ! grep -qw epub doc/src/sgml/Makefile; then
+        cat <<'EOF' >>src/Makefile.custom
+
+epub: postgres.epub
+postgres.epub: postgres.xml
+	dbtoepub $<
+EOF
+fi
+
 JAVA_ARGS='-Xmx700m -Xincgc'
 export JAVA_ARGS
 
