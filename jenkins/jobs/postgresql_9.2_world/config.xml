@@ -115,7 +115,7 @@
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
     <hudson.tasks.BuildTrigger>
-      <childProjects>plproxy, pgvihash, pg_logforward, pghashlib</childProjects>
+      <childProjects>postgresql_9.2_extradoc, plproxy, pgvihash, pg_logforward, pghashlib</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

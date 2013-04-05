@@ -111,7 +111,7 @@
       </reportTargets>
     </htmlpublisher.HtmlPublisher>
     <hudson.tasks.BuildTrigger>
-      <childProjects>pgvihash, pghashlib, plproxy</childProjects>
+      <childProjects>postgresql_9.1_extradoc, pgvihash, pghashlib, plproxy</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
