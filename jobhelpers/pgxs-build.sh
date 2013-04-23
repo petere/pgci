@@ -16,6 +16,6 @@ for dir in $PWD/postgresql-*.bin/usr/local/pgsql/bin; do
 
 	make -k all
 	make -k install
-	/srv/pgci/jobhelpers/wpti make -i installcheck || echo unstable | md5sum
+	/srv/pgci/jobhelpers/wpti $WPTI_FLAGS make -k installcheck || echo unstable | md5sum
 )
 done

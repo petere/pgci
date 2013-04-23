@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use File::Temp qw/tempdir/;
+use Getopt::Std;
 
 
 my $tmpdir = tempdir(CLEANUP => 1);
@@ -13,17 +14,29 @@ $ENV{PGPORT} = 54321;
 $ENV{PGDATA} = $tmpdir."/pgdata";
 $ENV{PGUSER} = 'postgres';
 
+my $listen_addresses = '';
+my $locale_opt = '';
+
+my %opts;
+getopts('CL', \%opts);
+$listen_addresses = 'localhost' if $opts{L};
+$locale_opt = '--locale=C' if $opts{C};
+
 my $ret;
 
-system 'initdb -A trust -U postgres >/dev/null';
-$ret = system 'pg_ctl', '-s', '-w', '-l', "$tmpdir/logfile", '-o', "--fsync=off -k $tmpdir --listen-addresses=''", 'start';
+system "initdb -A trust -U postgres $locale_opt >/dev/null";
+$ret = system 'pg_ctl', '-s', '-w', '-l', "$tmpdir/logfile", '-o', "--fsync=off -k $tmpdir --listen-addresses='$listen_addresses'", 'start';
 
 if ($ret != 0) {
     system('cat', "$tmpdir/logfile");
     exit 88;
 }
 
-$ret = system @ARGV;
+if (@ARGV) {
+    $ret = system @ARGV;
+} else {
+    $ret = system $ENV{SHELL};
+}
 
 system 'pg_ctl', '-s', '-w', '-m', 'immediate', 'stop';
 
@@ -32,5 +45,5 @@ if ($ret == -1) {
 } elsif ($ret & 127) {
     exit 255;
 } else {
-    exit $ret >> 8;
+    exit($ret >> 8);
 }
