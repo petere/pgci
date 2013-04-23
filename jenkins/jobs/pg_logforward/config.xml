@@ -53,18 +53,15 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.25">
-      <projectName>postgresql_master_world</projectName>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.26">
+      <project>_extensions_trigger</project>
       <filter>postgresql-*.bin.tar.xz</filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.25">
-      <projectName>postgresql_9.2_world</projectName>
-      <filter>postgresql-*.bin.tar.xz</filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>rm -f postgresql-8.*.bin.tar.xz postgresql-9.0.bin.tar.xz postgresql-9.1.bin.tar.xz</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>. /srv/pgci/jobhelpers/pgxs-build.sh</command>
     </hudson.tasks.Shell>

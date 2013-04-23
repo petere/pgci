@@ -91,7 +91,7 @@
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
     <hudson.tasks.BuildTrigger>
-      <childProjects>pgvihash, pghashlib, plproxy</childProjects>
+      <childProjects>_extensions_trigger</childProjects>
       <threshold>
         <name>UNSTABLE</name>
         <ordinal>1</ordinal>

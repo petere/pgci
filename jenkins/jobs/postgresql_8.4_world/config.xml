@@ -120,7 +120,7 @@
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
     <hudson.tasks.BuildTrigger>
-      <childProjects>postgresql_8.4_extradoc, pgvihash, pghashlib, plproxy</childProjects>
+      <childProjects>postgresql_8.4_extradoc, _extensions_trigger</childProjects>
       <threshold>
         <name>UNSTABLE</name>
         <ordinal>1</ordinal>

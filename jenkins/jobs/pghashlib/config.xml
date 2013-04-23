@@ -53,38 +53,8 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.25">
-      <projectName>postgresql_master_world</projectName>
-      <filter>postgresql-*.bin.tar.xz</filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.25">
-      <projectName>postgresql_9.2_world</projectName>
-      <filter>postgresql-*.bin.tar.xz</filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.25">
-      <projectName>postgresql_9.1_world</projectName>
-      <filter>postgresql-*.bin.tar.xz</filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.25">
-      <projectName>postgresql_9.0_world</projectName>
-      <filter>postgresql-*.bin.tar.xz</filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.25">
-      <projectName>postgresql_8.4_world</projectName>
-      <filter>postgresql-*.bin.tar.xz</filter>
-      <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
-    </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.25">
-      <projectName>postgresql_8.3_world</projectName>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.26">
+      <project>_extensions_trigger</project>
       <filter>postgresql-*.bin.tar.xz</filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
