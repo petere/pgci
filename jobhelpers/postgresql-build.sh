@@ -12,6 +12,11 @@ if grep -qw maintainer-check GNUmakefile; then
 	make -k maintainer-check
 fi
 
+if grep -qw init-po GNUmakefile; then
+	make -k init-po
+	make -k update-po
+fi
+
 if [ -x src/tools/pginclude/cpluspluscheck ]; then
 	src/tools/pginclude/cpluspluscheck >cpluspluscheck.out 2>&1
 	if [ -s cpluspluscheck.out ]; then
