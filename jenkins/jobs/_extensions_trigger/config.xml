@@ -63,7 +63,6 @@
     <hudson.tasks.ArtifactArchiver>
       <artifacts>postgresql-*.bin.tar.xz</artifacts>
       <latestOnly>true</latestOnly>
-      <allowEmptyArchive>true</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.BuildTrigger>
       <childProjects>pg_logforward, pghashlib, pgvihash, plproxy</childProjects>
