@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Builds additional nonstandard documentation formats: HTML via XSLT, PDF, Info, EPUB</description>
   <logRotator>
     <daysToKeep>70</daysToKeep>
     <numToKeep>50</numToKeep>

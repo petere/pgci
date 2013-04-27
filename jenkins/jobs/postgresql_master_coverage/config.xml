@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Runs the main regression tests (&lt;code&gt;make check&lt;/code&gt;) and collects code coverage information.</description>
   <logRotator>
     <daysToKeep>70</daysToKeep>
     <numToKeep>50</numToKeep>
