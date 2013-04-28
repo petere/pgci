@@ -6,6 +6,8 @@ file { '/etc/timezone':
 
 file { "/etc/localtime":
   source => "file:///usr/share/zoneinfo/Etc/UTC",
+  links => follow,
+  mode => 0644,
 }
 
 
