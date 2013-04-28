@@ -3,7 +3,7 @@
   <disabledAdministrativeMonitors>
     <string>jenkins.security.RekeySecretAdminMonitor</string>
   </disabledAdministrativeMonitors>
-  <version>1.491</version>
+  <version>1.512</version>
   <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -57,6 +57,7 @@
         <hudson.views.LastDurationColumn/>
         <hudson.views.BuildButtonColumn/>
       </columns>
+      <recurse>false</recurse>
     </listView>
     <listView>
       <owner class="hudson" reference="../../.."/>
@@ -78,6 +79,7 @@
         <hudson.views.BuildButtonColumn/>
       </columns>
       <includeRegex>postgresql_.*</includeRegex>
+      <recurse>false</recurse>
     </listView>
   </views>
   <primaryView>All</primaryView>

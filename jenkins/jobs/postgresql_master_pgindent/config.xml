@@ -63,6 +63,7 @@
     <hudson.tasks.ArtifactArchiver>
       <artifacts>pgindent.diff</artifacts>
       <latestOnly>true</latestOnly>
+      <allowEmptyArchive>true</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
   </publishers>
   <buildWrappers>
