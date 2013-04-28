@@ -67,7 +67,9 @@ package { ['samba', 'smbfs']: ensure => purged }
 
 package { ['deborphan']: }
 
-class { 'jenkins': }
+class { 'jenkins':
+  version => latest,
+}
 package { 'git': }
 
 # needed to run git inside jenkins
@@ -177,12 +179,12 @@ MAXOPENFILES=8192
 HTTP_PORT=8080
 AJP_PORT=-1
 PREFIX=/jenkins
-JAVA_ARGS="-Dhudson.tasks.ArtifactArchiver.warnOnEmpty=true"
 JENKINS_ARGS="--webroot=/var/cache/jenkins/war --httpPort=$HTTP_PORT --ajp13Port=$AJP_PORT --httpListenAddress=127.0.0.1 --prefix=$PREFIX"
 ',
 
   backup => '.puppet-bak',
   before => Class["jenkins::service"],
+  notify => Service['jenkins'],
 }
 
 file { '/var/lib/jenkins':

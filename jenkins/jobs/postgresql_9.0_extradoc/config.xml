@@ -70,7 +70,7 @@
     <hudson.tasks.ArtifactArchiver>
       <artifacts>doc/src/sgml/*.pdf,doc/src/sgml/*.info,doc/src/sgml/*.epub</artifacts>
       <latestOnly>true</latestOnly>
-      <allowEmptyArchive>true</allowEmptyArchive>
+      <allowEmptyArchive>false</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
     <htmlpublisher.HtmlPublisher plugin="htmlpublisher@1.2">
       <reportTargets>
