@@ -4,7 +4,7 @@
   <description>Checks all the external links in the documentation.</description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.2">
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.3">
       <useBuildBlocker>false</useBuildBlocker>
     </hudson.plugins.buildblocker.BuildBlockerProperty>
   </properties>
@@ -33,7 +33,7 @@
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <org.tap4j.plugin.TapPublisher plugin="tap@1.9">
+    <org.tap4j.plugin.TapPublisher plugin="tap@1.10">
       <testResults>checklinks.tap</testResults>
       <failIfNoResults>true</failIfNoResults>
       <failedTestsMarkBuildAsFailure>false</failedTestsMarkBuildAsFailure>
@@ -44,9 +44,9 @@
     </org.tap4j.plugin.TapPublisher>
   </publishers>
   <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.10">
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.12">
       <deleteDirs>false</deleteDirs>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.3.2"/>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.3"/>
   </buildWrappers>
 </project>
