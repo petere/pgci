@@ -72,6 +72,11 @@
     </hudson.tasks.Shell>
   </builders>
   <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>**/regression.diffs,**/regression.out</artifacts>
+      <latestOnly>false</latestOnly>
+      <allowEmptyArchive>true</allowEmptyArchive>
+    </hudson.tasks.ArtifactArchiver>
     <hudson.plugins.textfinder.TextFinderPublisher plugin="text-finder@1.9">
       <regexp>5644dbce38ce0f5f16155eba9988fee1</regexp>
       <succeedIfFound>false</succeedIfFound>
