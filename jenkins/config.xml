@@ -15,7 +15,9 @@
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
-  <systemMessage>continuous integration service for PostgreSQL, contribute at https://github.com/petere/pgci</systemMessage>
+  <systemMessage>&lt;h1&gt;continuous integration service for PostgreSQL&lt;/h1&gt;&#xd;
+&#xd;
+&lt;p&gt;contribute on &lt;a href=&quot;https://github.com/petere/pgci&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;</systemMessage>
   <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter">
     <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
   </markupFormatter>
