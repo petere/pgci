@@ -97,6 +97,7 @@ jenkins::plugin { 'git-client': }
 jenkins::plugin { 'googleanalytics': }
 jenkins::plugin { 'htmlpublisher': }
 jenkins::plugin { 'multiple-scms': }
+jenkins::plugin { 'clang-scanbuild-plugin': }
 jenkins::plugin { 'tap': }
 jenkins::plugin { 'text-finder': }
 jenkins::plugin { 'timestamper': }

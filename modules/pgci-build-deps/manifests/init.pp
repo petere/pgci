@@ -1,6 +1,7 @@
 class pgci-build-deps {
 
   $build_deps = [ 'bison',
+                  'clang',
                   'flex',
                   'g++',
                   'gcc',
