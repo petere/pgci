@@ -34,3 +34,4 @@ Some pieces should be set up manually:
 - `dpkg-reconfigure icinga-cgi` for the `icingaadmin` password
 - `/etc/aliases`, to get system email
 - Jenkins users and authentication
+- cron job from `tools/crontab` if desired

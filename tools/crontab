@@ -1,0 +1,1 @@
+*/22 * * * *	cd /src/pgci/ && git pull -q --ff-only && git submodule -q update --recursive && [ x$(git rev-parse --verify --quiet HEAD) != x$(git rev-parse --verify --quiet ORIG_HEAD) ] && puppet apply --color=false --show_diff --modulepath=modules/ manifests/pgci.pp
