@@ -282,3 +282,4 @@ package { 'procinfo':
 }
 
 package { 'debian-goodies': }
+package { 'sudo': }
