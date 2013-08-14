@@ -33,6 +33,7 @@ class pgci-build-deps {
                   'docbook-xsl',
                   'fop',
                   'jadetex',
+                  'lynx',
                   'openjade1.3',
                   'opensp',
                   'texinfo',
