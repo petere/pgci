@@ -135,11 +135,12 @@
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
     <hudson.tasks.BuildTrigger>
-      <childProjects>postgresql_9.1_extradoc, _extensions_trigger</childProjects>
+      <childProjects>postgresql_9.1_dist, postgresql_9.1_extradoc, _extensions_trigger</childProjects>
       <threshold>
         <name>UNSTABLE</name>
         <ordinal>1</ordinal>
         <color>YELLOW</color>
+        <completeBuild>true</completeBuild>
       </threshold>
     </hudson.tasks.BuildTrigger>
   </publishers>
