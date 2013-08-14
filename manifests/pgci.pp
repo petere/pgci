@@ -92,6 +92,7 @@ jenkins::plugin { 'build-blocker-plugin': }
 jenkins::plugin { 'configurationslicing': }
 jenkins::plugin { 'copyartifact': }
 jenkins::plugin { 'depgraph-view': }
+jenkins::plugin { 'disk-usage': }
 jenkins::plugin { 'git': }
 jenkins::plugin { 'git-client': }
 jenkins::plugin { 'googleanalytics': }
