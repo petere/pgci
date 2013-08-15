@@ -44,10 +44,6 @@
       <properties class="hudson.model.View$PropertyList"/>
       <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
-        <string>pg_logforward</string>
-        <string>pghashlib</string>
-        <string>pgvihash</string>
-        <string>plproxy</string>
       </jobNames>
       <jobFilters/>
       <columns>
@@ -59,6 +55,7 @@
         <hudson.views.LastDurationColumn/>
         <hudson.views.BuildButtonColumn/>
       </columns>
+      <includeRegex>ext_.*</includeRegex>
       <recurse>false</recurse>
     </listView>
     <listView>
