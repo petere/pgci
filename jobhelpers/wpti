@@ -10,7 +10,7 @@ use Getopt::Std;
 my $tmpdir = tempdir(CLEANUP => 1);
 
 $ENV{PGHOST} = $tmpdir;
-$ENV{PGPORT} = 54321;
+$ENV{PGPORT} = $ENV{WPTI_PGPORT} || 54321;
 $ENV{PGDATA} = $tmpdir."/pgdata";
 $ENV{PGUSER} = 'postgres';
 
