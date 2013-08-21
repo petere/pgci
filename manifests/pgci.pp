@@ -104,6 +104,7 @@ jenkins::plugin { 'tap': }
 jenkins::plugin { 'text-finder': }
 jenkins::plugin { 'timestamper': }
 jenkins::plugin { 'thinBackup': }
+jenkins::plugin { 'view-job-filters': }
 jenkins::plugin { 'warnings': }
 jenkins::plugin { 'ws-cleanup': }
 
