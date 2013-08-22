@@ -65,7 +65,7 @@
     <hudson.tasks.Shell>
       <command>./configure --enable-coverage --enable-depend
 make all coverage-clean
-make check
+make check MAX_CONNECTIONS=1
 make coverage-html</command>
     </hudson.tasks.Shell>
   </builders>
