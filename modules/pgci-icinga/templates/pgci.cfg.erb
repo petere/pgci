@@ -5,7 +5,7 @@ define command {
 
 define command {
 	command_name                   check_http_jenkins
-	command_line                   /usr/lib/nagios/plugins/check_http -H '$HOSTADDRESS$' -I '$HOSTADDRESS$' -u 'http://localhost/jenkins' -f follow -s 'Dashboard'
+	command_line                   /usr/lib/nagios/plugins/check_http -H '$HOSTADDRESS$' -I '$HOSTADDRESS$' -u 'http://localhost/jenkins' -f follow -s 'PostgreSQL'
 }
 
 define command {
