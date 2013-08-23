@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>100</daysToKeep>
+    <numToKeep>100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.plugins.buildblocker.BuildBlockerProperty plugin="build-blocker-plugin@1.4.1">
+      <useBuildBlocker>false</useBuildBlocker>
+    </hudson.plugins.buildblocker.BuildBlockerProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@1.4.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name></name>
+        <refspec></refspec>
+        <url>https://github.com/petere/pglibuuid.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>origin/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <disableSubmodules>false</disableSubmodules>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>true</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <ignoreNotifyCommit>false</ignoreNotifyCommit>
+    <useShallowClone>true</useShallowClone>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <gitTool>Default</gitTool>
+    <browser class="hudson.plugins.git.browser.GithubWeb">
+      <url>https://github.com/petere/pglibuuid/</url>
+    </browser>
+    <submoduleCfg class="list"/>
+    <relativeTargetDir></relativeTargetDir>
+    <reference></reference>
+    <excludedRegions></excludedRegions>
+    <excludedUsers></excludedUsers>
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+    <includedRegions></includedRegions>
+    <scmName></scmName>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>H/10 * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+      <name>pgversion</name>
+      <values>
+        <string>9.1</string>
+        <string>9.2</string>
+        <string>9.3</string>
+        <string>9.4</string>
+      </values>
+    </hudson.matrix.TextAxis>
+  </axes>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.27">
+      <project>_extensions_trigger</project>
+      <filter>postgresql-$pgversion.bin.tar.xz</filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>. /srv/pgci/jobhelpers/pgxs-build.sh</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>**/regression.diffs,**/regression.out</artifacts>
+      <latestOnly>false</latestOnly>
+      <allowEmptyArchive>true</allowEmptyArchive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.textfinder.TextFinderPublisher plugin="text-finder@1.9">
+      <regexp>5644dbce38ce0f5f16155eba9988fee1</regexp>
+      <succeedIfFound>false</succeedIfFound>
+      <unstableIfFound>true</unstableIfFound>
+      <alsoCheckConsoleOutput>true</alsoCheckConsoleOutput>
+    </hudson.plugins.textfinder.TextFinderPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.4"/>
+  </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+  </executionStrategy>
+</matrix-project>

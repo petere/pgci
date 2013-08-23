@@ -40,8 +40,12 @@ class pgci-build-deps {
                   'xsltproc',
 
                   'curl',
+                  'libmemcached-dev',
+                  'pkg-config',
                   'python-docutils', # for pghashlib
+                  'r-base-core',
                   'time',
+                  'uuid-dev',
                   'wget',
                   ]
 
