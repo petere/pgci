@@ -32,6 +32,8 @@ else
 	make -k check || echo unstable | md5sum
 fi
 
+find . -name 'tmp_check' | xargs rm -rf
+
 majorversion=$(./configure --version | sed -n -r '1s/^.* ([0-9]+\.[0-9]+).*$/\1/p')
 make install DESTDIR=$PWD/postgresql-$majorversion.bin
 tar cJf postgresql-$majorversion.bin.tar.xz postgresql-$majorversion.bin/
