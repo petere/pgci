@@ -29,7 +29,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>origin/*</name>
+        <name>origin/cfpatch-*</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <disableSubmodules>false</disableSubmodules>
@@ -71,7 +71,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>git log --format=&apos;description-setter: %s&apos; HEAD^!</command>
+      <command>git show
+git log --format=&apos;description-setter: %s&apos; HEAD^!</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>. /srv/pgci/jobhelpers/postgresql-build.sh</command>
