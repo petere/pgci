@@ -41,6 +41,7 @@ class pgci-build-deps {
 
                   'curl',
                   'libmemcached-dev',
+                  'libv8-dev',
                   'pkg-config',
                   'python-docutils', # for pghashlib
                   'r-base-core',

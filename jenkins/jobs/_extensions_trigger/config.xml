@@ -66,7 +66,7 @@
       <allowEmptyArchive>false</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.BuildTrigger>
-      <childProjects>ext_pg_logforward, ext_pghashlib, ext_pglibuuid, ext_pgmemcache, ext_pgvihash, ext_plproxy, ext_plr, ext_plsh</childProjects>
+      <childProjects>ext_pg_logforward, ext_pghashlib, ext_pglibuuid, ext_pgmemcache, ext_pgvihash, ext_plproxy, ext_plr, ext_plsh, ext_plv8</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

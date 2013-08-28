@@ -16,15 +16,22 @@ $ENV{PGUSER} = 'postgres';
 
 my $listen_addresses = '';
 my $locale_opt = '';
+my $extra_config = '';
 
 my %opts;
-getopts('CL', \%opts);
+getopts('CLc:', \%opts);
 $listen_addresses = 'localhost' if $opts{L};
 $locale_opt = '--locale=C' if $opts{C};
+$extra_config = $opts{c};
 
 my $ret;
 
 system "initdb -A trust -U postgres $locale_opt >/dev/null";
+if ($extra_config) {
+    open CONF, ">> $ENV{PGDATA}/postgresql.conf" or die "could not open postgresql.conf: $!";
+    print CONF $extra_config, "\n";
+    close CONF;
+}
 $ret = system 'pg_ctl', '-s', '-w', '-l', "$tmpdir/logfile", '-o', "--fsync=off -k $tmpdir --listen-addresses='$listen_addresses'", 'start';
 
 if ($ret != 0) {
