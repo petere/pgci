@@ -1,3 +1,12 @@
+case $JOB_NAME in
+	postgresql_?.?_world)
+		last_tag=$(git describe --tags --abbrev=0 --match='REL*' || :)
+		if [ -n "$last_tag" ]; then
+			git log --format=format:'%ai  %h  %s  (%aN)' "$last_tag".. >git-log-since-last-tag.txt
+		fi
+		;;
+esac
+
 ./configure --enable-debug --enable-depend --enable-cassert --enable-dtrace --with-tcl --with-perl --with-python --with-krb5 --with-pam --with-ldap --with-openssl --with-libxml --with-libxslt --with-gssapi --enable-thread-safety --enable-nls --with-ossp-uuid --disable-rpath
 
 if grep -qw world GNUmakefile; then

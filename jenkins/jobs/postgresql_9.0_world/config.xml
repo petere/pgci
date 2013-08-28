@@ -112,7 +112,7 @@
       </consoleParsers>
     </hudson.plugins.warnings.WarningsPublisher>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>**/regression.diffs,**/regression.out,postgresql-*.tar.*,cpluspluscheck.out</artifacts>
+      <artifacts>**/regression.diffs,**/regression.out,postgresql-*.tar.*,cpluspluscheck.out,git-log-since-last-tag.txt</artifacts>
       <latestOnly>false</latestOnly>
       <allowEmptyArchive>true</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
