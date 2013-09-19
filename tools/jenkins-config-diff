@@ -5,5 +5,5 @@ for file in $(
 find jobs \( -name 'fingerprints' -o -name 'builds' -o -name 'workspace' -o -name 'workspace@*' \) -prune -o -name '*.xml' -print | LC_COLLATE=C sort
 ls config.xml
 ); do
-	diff -Nu -I '<disabled>' -I 'plugin=' /srv/pgci/jenkins/$file $file
+	diff -Nu -I '<disabled>' -I 'plugin=' /srv/pgci/jenkins/$file /var/lib/jenkins/$file
 done
