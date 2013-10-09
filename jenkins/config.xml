@@ -120,6 +120,11 @@
           <disabled>false</disabled>
           <stable>false</stable>
         </hudson.views.JobStatusFilter>
+        <hudson.views.RegExJobFilter plugin="view-job-filters@1.26">
+          <includeExcludeTypeString>excludeMatched</includeExcludeTypeString>
+          <valueTypeString>NAME</valueTypeString>
+          <regex>.*commitfest.*</regex>
+        </hudson.views.RegExJobFilter>
       </jobFilters>
       <columns>
         <hudson.views.StatusColumn/>
@@ -130,6 +135,29 @@
         <hudson.views.LastDurationColumn/>
         <hudson.views.BuildButtonColumn/>
       </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Commitfest</name>
+      <description>PostgreSQL &lt;a href=&quot;http://commitfest.postgresql.org/&quot;&gt;commitfest&lt;/a&gt;-related jobs</description>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>postgresql_commitfest_.*</includeRegex>
       <recurse>false</recurse>
     </listView>
   </views>
