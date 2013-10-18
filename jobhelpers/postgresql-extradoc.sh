@@ -1,9 +1,11 @@
-cat <<'EOF' >src/Makefile.custom
+if ! grep -qw fop doc/src/sgml/Makefile; then
+	cat <<'EOF' >src/Makefile.custom
 .SECONDARY: postgres-A4.fo postgres-US.fo
 
 %-fop.pdf: %.fo
 	/usr/bin/time -v fop -fo $< -pdf $@
 EOF
+fi
 
 if ! grep -qw epub doc/src/sgml/Makefile; then
         cat <<'EOF' >>src/Makefile.custom
