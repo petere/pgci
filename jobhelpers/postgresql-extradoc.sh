@@ -16,7 +16,7 @@ postgres.epub: postgres.xml
 EOF
 fi
 
-JAVA_ARGS='-Xmx750m -Xincgc'
+JAVA_ARGS='-Xmx800m -Xincgc'
 export JAVA_ARGS
 
 test -e GNUmakefile || ./configure
