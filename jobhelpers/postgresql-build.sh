@@ -41,6 +41,10 @@ else
 	make -k check || echo unstable | md5sum
 fi
 
+if [ -e .gitattributes ]; then
+	git diff-tree --check $(git hash-object -t tree /dev/null) HEAD || echo unstable | md5sum
+fi
+
 find . -name 'tmp_check' | xargs rm -rf
 
 majorversion=$(./configure --version | sed -n -r '1s/^.* ([0-9]+\.[0-9]+).*$/\1/p')
