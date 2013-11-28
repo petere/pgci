@@ -59,6 +59,11 @@ class pgci-build-deps {
   }
 
 
+  if $operatingsystem == 'Debian' {
+    package { 'locales-all': }
+  }
+
+
   if $lsbdistcodename == 'squeeze' {
     apt::pin { 'squeeze-backports':
       packages => ['fop', 'libfop-java'],
