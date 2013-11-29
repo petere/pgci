@@ -59,7 +59,7 @@ class pgci-build-deps {
   }
 
 
-  if $operatingsystem == 'Debian' {
+  if $operatingsystem == 'Debian' and $is_chroot == true {
     package { 'locales-all': }
   }
 
