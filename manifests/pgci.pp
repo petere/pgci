@@ -281,6 +281,8 @@ class { 'pgci-build-deps': }
 class { 'pgci-ferm': }
 class { 'pgci-icinga': }
 
+pgci-schroot { 'jessie': }
+
 # interferes with facter
 package { 'procinfo':
   ensure => purged,
