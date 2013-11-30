@@ -52,7 +52,7 @@ class pgci-build-deps {
 
   package {
     $build_deps:
-      ensure => latest;
+      ensure => installed;
 
     'ccache':
       ensure => installed;
