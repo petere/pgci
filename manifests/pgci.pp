@@ -281,7 +281,10 @@ class { 'pgci-build-deps': }
 class { 'pgci-ferm': }
 class { 'pgci-icinga': }
 
-pgci-schroot { 'jessie': }
+case $operatingsystem {
+  'Debian': { pgci-schroot { 'jessie': } }
+  'Ubuntu': { pgci-schroot { 'saucy': } }
+}
 
 # interferes with facter
 package { 'procinfo':
