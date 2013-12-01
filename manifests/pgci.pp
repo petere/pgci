@@ -283,7 +283,7 @@ class { 'pgci-icinga': }
 
 case $operatingsystem {
   'Debian': { pgci-schroot { 'jessie': } }
-  'Ubuntu': { pgci-schroot { 'saucy': mirror => 'mirror://mirrors.ubuntu.com/mirrors.txt' } }
+  'Ubuntu': { pgci-schroot { 'saucy': mirror => 'http://archive.ubuntu.com/ubuntu' } }
 }
 
 # interferes with facter
