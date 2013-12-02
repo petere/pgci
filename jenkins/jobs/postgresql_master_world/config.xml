@@ -130,7 +130,7 @@
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
     <hudson.tasks.BuildTrigger>
-      <childProjects>postgresql_master_coverage, postgresql_master_dist, postgresql_master_extradoc, postgresql_master_linkcheck, postgresql_master_pgindent, postgresql_master_scan-build, _extensions_trigger</childProjects>
+      <childProjects>postgresql_master_coverage, postgresql_master_dist, postgresql_master_extradoc, postgresql_master_linkcheck, postgresql_master_pgindent, postgresql_master_sanitize_address, postgresql_master_scan-build, _extensions_trigger</childProjects>
       <threshold>
         <name>UNSTABLE</name>
         <ordinal>1</ordinal>
