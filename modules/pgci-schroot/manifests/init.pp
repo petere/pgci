@@ -4,7 +4,7 @@ define pgci-schroot ($release = $title, $mirror = 'http://cdn.debian.net/debian'
 
   exec {
     "debootstrap-$release":
-      command => "/usr/sbin/debootstrap --include=puppet $release /srv/chroot/pgci-$release $mirror",
+      command => "/usr/sbin/debootstrap --include=lsb-release,puppet $release /srv/chroot/pgci-$release $mirror",
       creates => "/srv/chroot/pgci-$release",
       logoutput => true,
       timeout => 0,
