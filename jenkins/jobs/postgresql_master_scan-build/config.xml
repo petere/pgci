@@ -62,7 +62,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>. /srv/pgci/jobhelpers/postgresql-scan-build.sh</command>
+      <command>schroot -c pgci-jessie -- sh -ex /srv/pgci/jobhelpers/postgresql-scan-build.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

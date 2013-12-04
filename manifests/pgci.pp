@@ -174,8 +174,8 @@ file { '/etc/apache2/conf.d/pgci-ssl':
 }
 
 file { '/etc/default/jenkins':
-  content => '
-JAVA=/usr/bin/java
+  content => 'JAVA=/usr/bin/java
+JAVA_ARGS="-Xmx1000m"
 PIDFILE=/var/run/jenkins/jenkins.pid
 JENKINS_USER=jenkins
 JENKINS_WAR=/usr/share/jenkins/jenkins.war
