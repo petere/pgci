@@ -106,6 +106,6 @@
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.4"/>
   </buildWrappers>
   <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
-    <runSequentially>false</runSequentially>
+    <runSequentially>true</runSequentially>
   </executionStrategy>
 </matrix-project>
