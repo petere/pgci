@@ -2,7 +2,7 @@
 
 cd /var/lib/jenkins
 for file in $(
-find jobs \( -name 'fingerprints' -o -name 'builds' -o -name 'workspace' -o -name 'workspace@*' \) -prune -o -name '*.xml' -print | LC_COLLATE=C sort
+find jobs \( -name 'fingerprints' -o -name 'builds' -o -name 'workspace' -o -name 'workspace@*' \) -prune -o -name '*.xml' -not -name 'disk-usage.xml' -print | LC_COLLATE=C sort
 ls config.xml
 ); do
 	diff -Nu -I '<disabled>' -I 'plugin=' /srv/pgci/jenkins/$file /var/lib/jenkins/$file
