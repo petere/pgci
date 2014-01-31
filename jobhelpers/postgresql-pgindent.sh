@@ -1,6 +1,6 @@
-wget -N http://ftp.postgresql.org/pub/dev/pg_bsd_indent-1.2.tar.gz
-echo '34991f8830eb4f8125b423792155a4763dded4a3  pg_bsd_indent-1.2.tar.gz' | sha1sum -c
-tar xvf pg_bsd_indent-1.2.tar.gz
+wget -N http://ftp.postgresql.org/pub/dev/pg_bsd_indent-1.3.tar.gz
+echo '98efaae1f2b0253ec1ae6ddb1a8925e19aa1bb85  pg_bsd_indent-1.3.tar.gz' | sha1sum -c
+tar xvf pg_bsd_indent-1.3.tar.gz
 make -C pg_bsd_indent/
 
 make -C src/tools/entab
