@@ -67,7 +67,7 @@
       <defaultEncoding></defaultEncoding>
       <canRunOnFailed>false</canRunOnFailed>
       <useStableBuildAsReference>true</useStableBuildAsReference>
-      <useDeltaValues>false</useDeltaValues>
+      <useDeltaValues>true</useDeltaValues>
       <thresholds plugin="analysis-core@1.50">
         <unstableTotalAll></unstableTotalAll>
         <unstableTotalHigh></unstableTotalHigh>
