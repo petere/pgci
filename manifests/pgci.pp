@@ -68,7 +68,7 @@ package { ['samba', 'smbfs']: ensure => purged }
 package { ['deborphan']: }
 
 class { 'jenkins':
-  version => installed,
+  version => held,
 }
 package { 'git': }
 
