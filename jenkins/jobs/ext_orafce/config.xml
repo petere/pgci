@@ -71,7 +71,8 @@
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command>. /srv/pgci/jobhelpers/pgxs-build.sh</command>
+      <command>PGCI_SKIP_CHECK=yes
+. /srv/pgci/jobhelpers/pgxs-build.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
