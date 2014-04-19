@@ -5,7 +5,7 @@ set -o pipefail
 
 mydir=$(dirname $0)
 
-flaky_hosts='db.cs.berkeley.edu zlatkovic.com'
+flaky_hosts='db.cs.berkeley.edu wiki.docbook.org zlatkovic.com'
 
 urls=$(xsltproc "$mydir/docbook-ulink-urls.xsl" "$1" | LC_COLLATE=C sort -u)
 
