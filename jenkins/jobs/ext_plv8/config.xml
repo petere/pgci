@@ -47,7 +47,6 @@
     <hudson.matrix.TextAxis>
       <name>pgversion</name>
       <values>
-        <string>8.4</string>
         <string>9.0</string>
         <string>9.1</string>
         <string>9.2</string>
