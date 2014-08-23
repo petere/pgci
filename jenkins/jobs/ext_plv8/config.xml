@@ -52,6 +52,7 @@
         <string>9.2</string>
         <string>9.3</string>
         <string>9.4</string>
+        <string>9.5</string>
       </values>
     </hudson.matrix.TextAxis>
   </axes>
