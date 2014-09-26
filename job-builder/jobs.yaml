@@ -1,0 +1,102 @@
+- defaults:
+    name: global
+    block-upstream: true
+    logrotate:
+      daysToKeep: 70
+      numToKeep: 50
+    wrappers:
+      - ansicolor
+      - timestamps
+
+- job:
+    name: postgresql_master_world
+    description: 'Runs <code>make world</code> and <code>make check-world</code> with most build options enabled.'
+    scm:
+      - git:
+          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          branches:
+            - origin/master
+          shallow-clone: true
+          clean: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: gitweb
+          browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    triggers:
+      - pollscm: 'H/10 * * * *'
+      - timed: '@daily'
+    builders:
+      - shell: '. /srv/pgci/jobhelpers/postgresql-build.sh'
+    publishers:
+      - archive:
+          artifacts: '**/regression.diffs,**/regression.out,postgresql-*.tar.*,doc/src/sgml/postgres.xml,cpluspluscheck.out'
+          allow-empty: true
+      - fingerprint:
+          files: postgresql-*.tar.*
+      - html-publisher:
+          name: Documentation
+          dir: doc/src/sgml/html/
+          files: index.html
+          keep-all: false
+      - text-finder:
+          regexp: 5644dbce38ce0f5f16155eba9988fee1
+          also-check-console-output: true
+          unstable-if-found: true
+      - trigger:
+          project: postgresql_master_coverage, postgresql_master_dist, postgresql_master_extradoc, postgresql_master_linkcheck, postgresql_master_pgindent, postgresql_master_sanitize_address, postgresql_master_scan-build, _extensions_trigger
+          threshold: UNSTABLE
+      - warnings:
+          console-log-parsers:
+            - 'GNU Make + GNU Compiler (gcc)'
+          total-thresholds:
+            unstable:
+              total-all: 1
+
+- job:
+    name: postgresql_master_dist
+    description: Runs <code>make distcheck</code>.  This is separate from the "world" job because it needs to be run in a clean tree.
+    scm:
+      - git:
+          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          branches:
+            - origin/master
+          shallow-clone: true
+          clean: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: gitweb
+          browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    builders:
+      - shell: '. /srv/pgci/jobhelpers/postgresql-dist.sh'
+    publishers:
+      - archive:
+          artifacts: 'postgresql-*.tar.*'
+          allow-empty: true
+
+- job:
+    name: postgresql_master_extradoc
+    description: "Builds additional nonstandard documentation formats: HTML via XSLT, PDF, Info, EPUB"
+    properties:
+      - build-blocker:
+          use-build-blocker: true
+          blocking-jobs:
+            - ".*"
+    scm:
+      - git:
+          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          branches:
+            - origin/master
+          shallow-clone: true
+          clean: false
+          fastpoll: true
+          wipe-workspace: false
+          browser: gitweb
+          browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    builders:
+      - shell: '. /srv/pgci/jobhelpers/postgresql-extradoc.sh'
+    publishers:
+      - html-publisher:
+          name: Documentation (XSLT)
+          dir: doc/src/sgml/html/
+          files: index.html
+          keep-all: false
