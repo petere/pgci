@@ -8,14 +8,14 @@
       - ansicolor
       - timestamps
 
-- job:
-    name: postgresql_master_world
+- job-template:
+    name: postgresql_{label}_world
     description: 'Runs <code>make world</code> and <code>make check-world</code> with most build options enabled.'
     scm:
       - git:
           url: http://git.postgresql.org/gitweb/?p=postgresql.git
           branches:
-            - origin/master
+            - origin/{branch_name}
           shallow-clone: true
           clean: true
           fastpoll: true
@@ -43,7 +43,7 @@
           also-check-console-output: true
           unstable-if-found: true
       - trigger:
-          project: postgresql_master_coverage, postgresql_master_dist, postgresql_master_extradoc, postgresql_master_linkcheck, postgresql_master_pgindent, postgresql_master_sanitize_address, postgresql_master_scan-build, _extensions_trigger
+          project: postgresql_{label}_coverage, postgresql_{label}_dist, postgresql_{label}_extradoc, postgresql_{label}_linkcheck, postgresql_{label}_pgindent, postgresql_{label}_sanitize_address, postgresql_{label}_scan-build, _extensions_trigger
           threshold: UNSTABLE
       - warnings:
           console-log-parsers:
@@ -52,14 +52,14 @@
             unstable:
               total-all: 1
 
-- job:
-    name: postgresql_master_dist
+- job-template:
+    name: postgresql_{label}_dist
     description: Runs <code>make distcheck</code>.  This is separate from the "world" job because it needs to be run in a clean tree.
     scm:
       - git:
           url: http://git.postgresql.org/gitweb/?p=postgresql.git
           branches:
-            - origin/master
+            - origin/{branch_name}
           shallow-clone: true
           clean: true
           fastpoll: true
@@ -74,7 +74,7 @@
           allow-empty: true
 
 - job:
-    name: postgresql_master_extradoc
+    name: postgresql_{label}_extradoc
     description: "Builds additional nonstandard documentation formats: HTML via XSLT, PDF, Info, EPUB"
     properties:
       - build-blocker:
@@ -85,7 +85,7 @@
       - git:
           url: http://git.postgresql.org/gitweb/?p=postgresql.git
           branches:
-            - origin/master
+            - origin/{branch_name}
           shallow-clone: true
           clean: false
           fastpoll: true
@@ -100,3 +100,23 @@
           dir: doc/src/sgml/html/
           files: index.html
           keep-all: false
+
+- project:
+    name: postgresql
+    label:
+      - master:
+          branch_name: master
+      - 9.4:
+          branch_name: REL9_4_STABLE
+      - 9.3:
+          branch_name: REL9_3_STABLE
+      - 9.2:
+          branch_name: REL9_2_STABLE
+      - 9.1:
+          branch_name: REL9_1_STABLE
+      - 9.0:
+          branch_name: REL9_0_STABLE
+    jobs:
+      - 'postgresql_{label}_dist'
+      - 'postgresql_{label}_extradoc'
+      - 'postgresql_{label}_world'
