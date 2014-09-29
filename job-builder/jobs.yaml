@@ -191,6 +191,26 @@
           artifacts: '**/*.log.asan'
           allow-empty: true
 
+- job-template:
+    name: postgresql_{label}_scan_build
+    description: Runs <a href="http://clang-analyzer.llvm.org/scan-build.html">clang scan-build</a> over the PostgreSQL sources.
+    scm:
+      - git:
+          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          branches:
+            - origin/{branch_name}
+          shallow-clone: true
+          clean: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: gitweb
+          browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    builders:
+      - shell: 'schroot -c pgci-jessie -- sh -ex /srv/pgci/jobhelpers/postgresql-scan-build.sh'
+    # TODO
+    #publishers:
+    #  - clang-scan-build:
+
 - project:
     name: postgresql
     label:
@@ -213,4 +233,5 @@
       - 'postgresql_{label}_linkcheck'
       - 'postgresql_{label}_pgindent'
       - 'postgresql_{label}_sanitize_address'
+      - 'postgresql_{label}_scan_build'
       - 'postgresql_{label}_world'
