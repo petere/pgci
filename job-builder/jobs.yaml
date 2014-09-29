@@ -99,7 +99,7 @@
     publishers:
       - archive:
           artifacts: 'postgresql-*.tar.*'
-          allow-empty: true
+          allow-empty: false
 
 - job:
     name: postgresql_{label}_extradoc
@@ -149,6 +149,27 @@
     wrappers:
       - workspace-cleanup
 
+- job-template:
+    name: postgresql_{label}_pgindent
+    description: Runs pgindent to re-indent the source code to standard style, and collects a diff of what it did.
+    scm:
+      - git:
+          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          branches:
+            - origin/{branch_name}
+          shallow-clone: true
+          clean: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: gitweb
+          browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    builders:
+      - shell: '. /srv/pgci/jobhelpers/postgresql-pgindent.sh'
+    publishers:
+      - archive:
+          artifacts: 'pgindent.diff'
+          allow-empty: false
+
 - project:
     name: postgresql
     label:
@@ -169,4 +190,5 @@
       - 'postgresql_{label}_dist'
       - 'postgresql_{label}_extradoc'
       - 'postgresql_{label}_linkcheck'
+      - 'postgresql_{label}_pgindent'
       - 'postgresql_{label}_world'
