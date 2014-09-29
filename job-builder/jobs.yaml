@@ -170,6 +170,27 @@
           artifacts: 'pgindent.diff'
           allow-empty: false
 
+- job-template:
+    name: postgresql_{label}_sanitize_address
+    description: Builds and tests PostgreSQL with <a href="http://clang.llvm.org/docs/AddressSanitizer.html">AddressSanitizer</a>.
+    scm:
+      - git:
+          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          branches:
+            - origin/{branch_name}
+          shallow-clone: true
+          clean: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: gitweb
+          browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    builders:
+      - shell: 'schroot -c pgci-jessie -- sh -ex /srv/pgci/jobhelpers/postgresql-sanitize-address.sh'
+    publishers:
+      - archive:
+          artifacts: '**/*.log.asan'
+          allow-empty: true
+
 - project:
     name: postgresql
     label:
@@ -191,4 +212,5 @@
       - 'postgresql_{label}_extradoc'
       - 'postgresql_{label}_linkcheck'
       - 'postgresql_{label}_pgindent'
+      - 'postgresql_{label}_sanitize_address'
       - 'postgresql_{label}_world'
