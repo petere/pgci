@@ -235,3 +235,36 @@
       - 'postgresql_{label}_sanitize_address'
       - 'postgresql_{label}_scan_build'
       - 'postgresql_{label}_world'
+
+- job:
+    name: _extensions_trigger
+    description: Triggers the build of all extensions whenever a PostgreSQL build has finished.
+    logrotate:
+      daysToKeep: 10
+      numToKeep: 1
+    builders:
+      - copyartifact:
+          project: postgresql_master_world
+          filter: postgresql-*.bin.tar.xz
+      - copyartifact:
+          project: postgresql_9.4_world
+          filter: postgresql-*.bin.tar.xz
+      - copyartifact:
+          project: postgresql_9.3_world
+          filter: postgresql-*.bin.tar.xz
+      - copyartifact:
+          project: postgresql_9.2_world
+          filter: postgresql-*.bin.tar.xz
+      - copyartifact:
+          project: postgresql_9.1_world
+          filter: postgresql-*.bin.tar.xz
+      - copyartifact:
+          project: postgresql_9.0_world
+          filter: postgresql-*.bin.tar.xz
+    publishers:
+      - archive:
+          artifacts: postgresql-*.bin.tar.xz
+          latest-only: true
+      - trigger:
+          project: ext_orafce, ext_pg_logforward, ext_pghashlib, ext_pglibuuid, ext_pgmemcache, ext_pgvihash, ext_plproxy, ext_plr, ext_plsh, ext_plv8
+          threshold: SUCCESS
