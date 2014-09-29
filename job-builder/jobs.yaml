@@ -129,6 +129,26 @@
           files: index.html
           keep-all: false
 
+- job-template:
+    name: postgresql_{label}_linkcheck
+    description: Checks all the external links in the documentation.
+    quiet-period: 300
+    triggers:
+      - timed: '@daily'
+    builders:
+      - copyartifact:
+          project: postgresql_{label}_world
+          filter: doc/src/sgml/postgres.xml
+          flatten: true
+      - shell: 'bash /srv/pgci/jobhelpers/checklinks.sh postgres.xml'
+    publishers:
+      - tap:
+          results: checklinks.tap
+          fail-if-no-results: true
+          todo-if-failure: false
+    wrappers:
+      - workspace-cleanup
+
 - project:
     name: postgresql
     label:
@@ -148,4 +168,5 @@
       - 'postgresql_{label}_coverage'
       - 'postgresql_{label}_dist'
       - 'postgresql_{label}_extradoc'
+      - 'postgresql_{label}_linkcheck'
       - 'postgresql_{label}_world'
