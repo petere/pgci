@@ -53,6 +53,34 @@
               total-all: 1
 
 - job-template:
+    name: postgresql_{label}_coverage
+    description: Runs the main regression tests (<code>make check</code>) and collects code coverage information.
+    quiet-period: 120
+    scm:
+      - git:
+          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          branches:
+            - origin/{branch_name}
+          shallow-clone: true
+          clean: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: gitweb
+          browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    builders:
+      - shell: |
+          ./configure --enable-coverage --enable-depend
+          make all coverage-clean
+          make check MAX_CONNECTIONS=1
+          make coverage-html
+    publishers:
+      - html-publisher:
+          name: Coverage
+          dir: coverage/
+          files: index.html
+          keep-all: true
+
+- job-template:
     name: postgresql_{label}_dist
     description: Runs <code>make distcheck</code>.  This is separate from the "world" job because it needs to be run in a clean tree.
     scm:
@@ -117,6 +145,7 @@
       - 9.0:
           branch_name: REL9_0_STABLE
     jobs:
+      - 'postgresql_{label}_coverage'
       - 'postgresql_{label}_dist'
       - 'postgresql_{label}_extradoc'
       - 'postgresql_{label}_world'
