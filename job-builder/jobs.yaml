@@ -275,3 +275,81 @@
       - trigger:
           project: ext_orafce, ext_pg_logforward, ext_pghashlib, ext_pglibuuid, ext_pgmemcache, ext_pgvihash, ext_plproxy, ext_plr, ext_plsh, ext_plv8
           threshold: SUCCESS
+
+- job-template:
+    name: ext_{ext}
+    project-type: matrix
+    description: Builds and tests extension {ext}
+    axes:
+      - axis:
+          type: user-defined
+          name: pgversion
+          values:
+            - 9.0
+            - 9.1
+            - 9.2
+            - 9.3
+            - 9.4
+            - 9.5
+    scm:
+      - git:
+          url: '{git_url}'
+          branches:
+            - origin/master
+          shallow-clone: true
+          clean: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: gitweb
+          browser-url: '{git_browser_url}'
+    triggers:
+      - pollscm: 'H/10 * * * *'
+    builders:
+      - copyartifact:
+          project: _extensions_trigger
+          filter: postgresql-$pgversion.bin.tar.xz
+      - shell: '. /srv/pgci/jobhelpers/pgxs-build.sh'
+    publishers:
+      - archive:
+          artifacts: '**/regression.diffs,**/regression.out'
+          allow-empty: true
+      - text-finder:
+          regexp: 5644dbce38ce0f5f16155eba9988fee1
+          also-check-console-output: true
+          unstable-if-found: true
+
+- project:
+    name: extensions
+    ext:
+      - orafce: #FIXME
+          git_url: 'https://github.com/orafce/orafce.git'
+          git_browser_url: 'https://github.com/orafce/orafce/'
+      - pg_logforward:
+          git_url: 'https://github.com/mpihlak/pg_logforward.git'
+          git_browser_url: 'https://github.com/mpihlak/pg_logforward'
+      - pghashlib:
+          git_url: 'https://github.com/markokr/pghashlib.git'
+          git_browser_url: 'https://github.com/markokr/pghashlib'
+      - pglibuuid:
+          git_url: 'https://github.com/petere/pglibuuid.git'
+          git_browser_url: 'https://github.com/petere/pglibuuid'
+      - pgmemcache: #FIXME?
+          git_url: 'https://github.com/ohmu/pgmemcache.git'
+          git_browser_url: 'https://github.com/ohmu/pgmemcache'
+      - pgvihash:
+          git_url: 'https://github.com/petere/pgvihash.git'
+          git_browser_url: 'https://github.com/petere/pgvihash'
+      - plproxy: #FIXME
+          git_url: 'https://github.com/markokr/plproxy-dev.git'
+          git_browser_url: 'https://github.com/markokr/plproxy-dev'
+      - plr:
+          git_url: 'https://github.com/jconway/plr.git'
+          git_browser_url: 'https://github.com/jconway/plr'
+      - plsh: #FIXME
+          git_url: 'https://github.com/petere/plsh.git'
+          git_browser_url: 'https://github.com/petere/plsh'
+      - plv8: #FIXME
+          git_url: 'https://code.google.com/p/plv8js'
+          git_browser_url: 'XXX'
+    jobs:
+      - 'ext_{ext}'
