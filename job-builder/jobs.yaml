@@ -13,7 +13,7 @@
     description: 'Runs <code>make world</code> and <code>make check-world</code> with most build options enabled.'
     scm:
       - git:
-          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          url: git://git.postgresql.org/git/postgresql.git
           branches:
             - origin/{branch_name}
           shallow-clone: true
@@ -58,7 +58,7 @@
     quiet-period: 120
     scm:
       - git:
-          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          url: git://git.postgresql.org/git/postgresql.git
           branches:
             - origin/{branch_name}
           shallow-clone: true
@@ -85,7 +85,7 @@
     description: Runs <code>make distcheck</code>.  This is separate from the "world" job because it needs to be run in a clean tree.
     scm:
       - git:
-          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          url: git://git.postgresql.org/git/postgresql.git
           branches:
             - origin/{branch_name}
           shallow-clone: true
@@ -100,8 +100,9 @@
       - archive:
           artifacts: 'postgresql-*.tar.*'
           allow-empty: false
+          latest-only: true
 
-- job:
+- job-template:
     name: postgresql_{label}_extradoc
     description: "Builds additional nonstandard documentation formats: HTML via XSLT, PDF, Info, EPUB"
     properties:
@@ -111,7 +112,7 @@
             - ".*"
     scm:
       - git:
-          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          url: git://git.postgresql.org/git/postgresql.git
           branches:
             - origin/{branch_name}
           shallow-clone: true
@@ -123,6 +124,10 @@
     builders:
       - shell: '. /srv/pgci/jobhelpers/postgresql-extradoc.sh'
     publishers:
+      - archive:
+          artifacts: 'doc/src/sgml/*.pdf,doc/src/sgml/*.info,doc/src/sgml/*.epub'
+          allow-empty: false
+          latest-only: true
       - html-publisher:
           name: Documentation (XSLT)
           dir: doc/src/sgml/html/
@@ -147,6 +152,8 @@
           fail-if-no-results: true
           todo-if-failure: false
     wrappers:
+      - ansicolor
+      - timestamps
       - workspace-cleanup
 
 - job-template:
@@ -154,7 +161,7 @@
     description: Runs pgindent to re-indent the source code to standard style, and collects a diff of what it did.
     scm:
       - git:
-          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          url: git://git.postgresql.org/git/postgresql.git
           branches:
             - origin/{branch_name}
           shallow-clone: true
@@ -175,7 +182,7 @@
     description: Builds and tests PostgreSQL with <a href="http://clang.llvm.org/docs/AddressSanitizer.html">AddressSanitizer</a>.
     scm:
       - git:
-          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          url: git://git.postgresql.org/git/postgresql.git
           branches:
             - origin/{branch_name}
           shallow-clone: true
@@ -192,11 +199,11 @@
           allow-empty: true
 
 - job-template:
-    name: postgresql_{label}_scan_build
+    name: postgresql_{label}_scan-build
     description: Runs <a href="http://clang-analyzer.llvm.org/scan-build.html">clang scan-build</a> over the PostgreSQL sources.
     scm:
       - git:
-          url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          url: git://git.postgresql.org/git/postgresql.git
           branches:
             - origin/{branch_name}
           shallow-clone: true
@@ -233,7 +240,7 @@
       - 'postgresql_{label}_linkcheck'
       - 'postgresql_{label}_pgindent'
       - 'postgresql_{label}_sanitize_address'
-      - 'postgresql_{label}_scan_build'
+      - 'postgresql_{label}_scan-build'
       - 'postgresql_{label}_world'
 
 - job:
