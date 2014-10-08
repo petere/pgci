@@ -29,7 +29,7 @@
       - shell: '. /srv/pgci/jobhelpers/postgresql-build.sh'
     publishers:
       - archive:
-          artifacts: '**/regression.diffs,**/regression.out,postgresql-*.tar.*,doc/src/sgml/postgres.xml,cpluspluscheck.out'
+          artifacts: '**/regression.diffs,**/regression.out,postgresql-*.tar.*,doc/src/sgml/postgres.xml,cpluspluscheck.out,git-log-since-last-tag.txt'
           allow-empty: true
       - fingerprint:
           files: postgresql-*.tar.*
