@@ -353,3 +353,48 @@
           git_browser_url: 'XXX'
     jobs:
       - 'ext_{ext}'
+
+- job:
+    name: pex_repotest
+    description: Runs <code><a href="https://github.com/petere/pex">pex</a> repotest</code>.
+    scm:
+      - git:
+          url: https://github.com/petere/pex.git
+          branches:
+            - origin/master
+          shallow-clone: true
+          clean: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: githubweb
+          browser-url: https://github.com/petere/pex
+          basedir: pex
+      - git:
+          url: https://github.com/petere/pex-packages.git
+          branches:
+            - origin/master
+          shallow-clone: true
+          clean: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: githubweb
+          browser-url: https://github.com/petere/pex-packages
+          basedir: pex-packages
+    triggers:
+      - pollscm: '@hourly'
+      - timed: '@daily'
+    builders:
+      - shell: |
+          rm -rf home
+          mkdir home
+          HOME=$PWD/home
+          export HOME
+
+          rm -f *.tap
+
+          ./pex/pex init file://$PWD/pex-packages
+          ./pex/pex repotest | tee repotest.tap || :
+    publishers:
+      - tap:
+          results: repotest.tap
+          fail-if-no-results: true
