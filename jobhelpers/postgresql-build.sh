@@ -13,7 +13,7 @@ case $majorversion in
 	8.* | 9.[01] ) ;;
 	* ) fortify='CPPFLAGS=-D_FORTIFY_SOURCE=2';;
 esac
-./configure --enable-debug --enable-depend --enable-cassert --enable-dtrace --with-tcl --with-perl --with-python --with-krb5 --with-pam --with-ldap --with-openssl --with-libxml --with-libxslt --with-gssapi --enable-thread-safety --enable-nls --with-ossp-uuid --disable-rpath $fortify
+./configure --enable-debug --enable-depend --enable-cassert --enable-dtrace --enable-tap-tests --with-tcl --with-perl --with-python --with-krb5 --with-pam --with-ldap --with-openssl --with-libxml --with-libxslt --with-gssapi --enable-thread-safety --enable-nls --with-ossp-uuid --disable-rpath $fortify
 
 if grep -qw world GNUmakefile; then
 	make -k world
