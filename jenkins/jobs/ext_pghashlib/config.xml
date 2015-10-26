@@ -54,12 +54,12 @@
     <hudson.matrix.TextAxis>
       <name>pgversion</name>
       <values>
-        <string>9.0</string>
         <string>9.1</string>
         <string>9.2</string>
         <string>9.3</string>
         <string>9.4</string>
         <string>9.5</string>
+        <string>9.6</string>
       </values>
     </hudson.matrix.TextAxis>
   </axes>

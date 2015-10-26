@@ -47,12 +47,12 @@
     <hudson.matrix.TextAxis>
       <name>pgversion</name>
       <values>
-        <string>9.0</string>
         <string>9.1</string>
         <string>9.2</string>
         <string>9.3</string>
         <string>9.4</string>
         <string>9.5</string>
+        <string>9.6</string>
       </values>
     </hudson.matrix.TextAxis>
   </axes>
@@ -65,7 +65,7 @@
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
       <command>case $pgversion in
-    9.0|9.1) WPTI_FLAGS=&quot;-ccustom_variable_classes=&apos;plv8&apos;&quot;;;
+    9.1) WPTI_FLAGS=&quot;-ccustom_variable_classes=&apos;plv8&apos;&quot;;;
 esac
 
 . /srv/pgci/jobhelpers/pgxs-build.sh</command>
