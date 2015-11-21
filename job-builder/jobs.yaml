@@ -242,14 +242,21 @@
       - 9.1:
           branch_name: REL9_1_STABLE
     jobs:
-      - 'postgresql_{label}_coverage'
       - 'postgresql_{label}_dist'
       - 'postgresql_{label}_extradoc'
+      - 'postgresql_{label}_world'
+
+- project:
+    name: postgresql-extra
+    label:
+      - master:
+          branch_name: master
+    jobs:
+      - 'postgresql_{label}_coverage'
       - 'postgresql_{label}_linkcheck'
       - 'postgresql_{label}_pgindent'
       - 'postgresql_{label}_sanitize_address'
       - 'postgresql_{label}_scan-build'
-      - 'postgresql_{label}_world'
 
 - job:
     name: _extensions_trigger
