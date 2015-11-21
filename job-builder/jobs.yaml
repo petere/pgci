@@ -17,13 +17,15 @@
           branches:
             - origin/{branch_name}
           shallow-clone: true
-          clean: true
+          clean:
+            after: true
           fastpoll: true
           wipe-workspace: false
           browser: gitweb
           browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
     triggers:
-      - pollscm: 'H/10 * * * *'
+      - pollscm:
+          cron: 'H/10 * * * *'
       - timed: '@daily'
     builders:
       - shell: '. /srv/pgci/jobhelpers/postgresql-build.sh'
@@ -62,7 +64,8 @@
           branches:
             - origin/{branch_name}
           shallow-clone: true
-          clean: true
+          clean:
+            after: true
           fastpoll: true
           wipe-workspace: false
           browser: gitweb
@@ -89,7 +92,8 @@
           branches:
             - origin/{branch_name}
           shallow-clone: true
-          clean: true
+          clean:
+            after: true
           fastpoll: true
           wipe-workspace: false
           browser: gitweb
@@ -116,7 +120,8 @@
           branches:
             - origin/{branch_name}
           shallow-clone: true
-          clean: false
+          clean:
+            after: false
           fastpoll: true
           wipe-workspace: false
           browser: gitweb
@@ -165,7 +170,8 @@
           branches:
             - origin/{branch_name}
           shallow-clone: true
-          clean: true
+          clean:
+            after: true
           fastpoll: true
           wipe-workspace: false
           browser: gitweb
@@ -186,7 +192,8 @@
           branches:
             - origin/{branch_name}
           shallow-clone: true
-          clean: true
+          clean:
+            after: true
           fastpoll: true
           wipe-workspace: false
           browser: gitweb
@@ -207,7 +214,8 @@
           branches:
             - origin/{branch_name}
           shallow-clone: true
-          clean: true
+          clean:
+            after: true
           fastpoll: true
           wipe-workspace: false
           browser: gitweb
@@ -297,13 +305,15 @@
           branches:
             - origin/master
           shallow-clone: true
-          clean: true
+          clean:
+            after: true
           fastpoll: true
           wipe-workspace: false
           browser: gitweb
           browser-url: '{git_browser_url}'
     triggers:
-      - pollscm: 'H/10 * * * *'
+      - pollscm:
+          cron: 'H/10 * * * *'
     builders:
       - copyartifact:
           project: _extensions_trigger
@@ -363,7 +373,8 @@
           branches:
             - origin/master
           shallow-clone: true
-          clean: true
+          clean:
+            after: true
           fastpoll: true
           wipe-workspace: false
           browser: githubweb
@@ -374,14 +385,16 @@
           branches:
             - origin/master
           shallow-clone: true
-          clean: true
+          clean:
+            after: true
           fastpoll: true
           wipe-workspace: false
           browser: githubweb
           browser-url: https://github.com/petere/pex-packages
           basedir: pex-packages
     triggers:
-      - pollscm: '@hourly'
+      - pollscm:
+          cron: '@hourly'
       - timed: '@daily'
     builders:
       - shell: |
