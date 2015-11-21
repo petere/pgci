@@ -231,6 +231,8 @@
     label:
       - master:
           branch_name: master
+      - 9.5:
+          branch_name: REL9_5_STABLE
       - 9.4:
           branch_name: REL9_4_STABLE
       - 9.3:
@@ -239,8 +241,6 @@
           branch_name: REL9_2_STABLE
       - 9.1:
           branch_name: REL9_1_STABLE
-      - 9.0:
-          branch_name: REL9_0_STABLE
     jobs:
       - 'postgresql_{label}_coverage'
       - 'postgresql_{label}_dist'
