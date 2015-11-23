@@ -11,6 +11,9 @@
 - job-template:
     name: postgresql_{label}_world
     description: 'Runs <code>make world</code> and <code>make check-world</code> with most build options enabled.'
+    logrotate:
+      daysToKeep: 200
+      numToKeep: 100
     scm:
       - git:
           url: git://git.postgresql.org/git/postgresql.git
@@ -45,7 +48,7 @@
           also-check-console-output: true
           unstable-if-found: true
       - trigger:
-          project: postgresql_{label}_coverage, postgresql_{label}_dist, postgresql_{label}_extradoc, postgresql_{label}_linkcheck, postgresql_{label}_pgindent, postgresql_{label}_sanitize_address, postgresql_{label}_scan-build, _extensions_trigger
+          project: postgresql_{label}_dist, postgresql_{label}_extradoc, _extensions_trigger
           threshold: UNSTABLE
       - warnings:
           console-log-parsers:
@@ -57,6 +60,9 @@
 - job-template:
     name: postgresql_{label}_coverage
     description: Runs the main regression tests (<code>make check</code>) and collects code coverage information.
+    logrotate:
+      daysToKeep: 70
+      numToKeep: 30
     quiet-period: 120
     scm:
       - git:
@@ -70,6 +76,10 @@
           wipe-workspace: false
           browser: gitweb
           browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    triggers:
+      - reverse:
+          jobs: 'postgresql_{label}_world'
+          result: 'success'
     builders:
       - shell: |
           ./configure --enable-coverage --enable-depend
@@ -79,7 +89,7 @@
     publishers:
       - html-publisher:
           name: Coverage
-          dir: coverage/
+          dir: coverage
           files: index.html
           keep-all: true
 
@@ -109,6 +119,9 @@
 - job-template:
     name: postgresql_{label}_extradoc
     description: "Builds additional nonstandard documentation formats: HTML via XSLT, PDF, Info, EPUB"
+    logrotate:
+      daysToKeep: 40
+      numToKeep: 20
     properties:
       - build-blocker:
           use-build-blocker: true
@@ -142,9 +155,14 @@
 - job-template:
     name: postgresql_{label}_linkcheck
     description: Checks all the external links in the documentation.
+    block-upstream: false
     quiet-period: 300
     triggers:
       - timed: '@daily'
+    triggers:
+      - reverse:
+          jobs: 'postgresql_{label}_world'
+          result: 'success'
     builders:
       - copyartifact:
           project: postgresql_{label}_world
@@ -173,15 +191,20 @@
           clean:
             after: true
           fastpoll: true
-          wipe-workspace: false
+          wipe-workspace: true
           browser: gitweb
           browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    triggers:
+      - reverse:
+          jobs: 'postgresql_{label}_world'
+          result: 'success'
     builders:
       - shell: '. /srv/pgci/jobhelpers/postgresql-pgindent.sh'
     publishers:
       - archive:
           artifacts: 'pgindent.diff'
           allow-empty: false
+          latest-only: true
 
 - job-template:
     name: postgresql_{label}_sanitize_address
@@ -198,6 +221,10 @@
           wipe-workspace: false
           browser: gitweb
           browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    triggers:
+      - reverse:
+          jobs: 'postgresql_{label}_world'
+          result: 'success'
     builders:
       - shell: 'schroot -c pgci-jessie -- sh -ex /srv/pgci/jobhelpers/postgresql-sanitize-address.sh'
     publishers:
@@ -208,6 +235,9 @@
 - job-template:
     name: postgresql_{label}_scan-build
     description: Runs <a href="http://clang-analyzer.llvm.org/scan-build.html">clang scan-build</a> over the PostgreSQL sources.
+    logrotate:
+      daysToKeep: 70
+      numToKeep: 30
     scm:
       - git:
           url: git://git.postgresql.org/git/postgresql.git
@@ -220,11 +250,14 @@
           wipe-workspace: false
           browser: gitweb
           browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+    triggers:
+      - reverse:
+          jobs: 'postgresql_{label}_world'
+          result: 'success'
     builders:
       - shell: 'schroot -c pgci-jessie -- sh -ex /srv/pgci/jobhelpers/postgresql-scan-build.sh'
-    # TODO
-    #publishers:
-    #  - clang-scan-build:
+    publishers:
+      - scan-build
 
 - project:
     name: postgresql
@@ -269,6 +302,9 @@
           project: postgresql_master_world
           filter: postgresql-*.bin.tar.xz
       - copyartifact:
+          project: postgresql_9.5_world
+          filter: postgresql-*.bin.tar.xz
+      - copyartifact:
           project: postgresql_9.4_world
           filter: postgresql-*.bin.tar.xz
       - copyartifact:
@@ -279,9 +315,6 @@
           filter: postgresql-*.bin.tar.xz
       - copyartifact:
           project: postgresql_9.1_world
-          filter: postgresql-*.bin.tar.xz
-      - copyartifact:
-          project: postgresql_9.0_world
           filter: postgresql-*.bin.tar.xz
     publishers:
       - archive:
@@ -295,17 +328,20 @@
     name: ext_{ext}
     project-type: matrix
     description: Builds and tests extension {ext}
+    execution-strategy:
+      combination-filter: '{combination-filter}'
+      sequential: '{matrix_sequential}'
     axes:
       - axis:
           type: user-defined
           name: pgversion
           values:
-            - 9.0
             - 9.1
             - 9.2
             - 9.3
             - 9.4
             - 9.5
+            - 9.6
     scm:
       - git:
           url: '{git_url}'
@@ -321,11 +357,19 @@
     triggers:
       - pollscm:
           cron: 'H/10 * * * *'
+    wrappers:
+      - ansicolor
+      - timestamps
+      - port-allocator:
+          names:
+            - WPTI_PGPORT
     builders:
       - copyartifact:
           project: _extensions_trigger
           filter: postgresql-$pgversion.bin.tar.xz
-      - shell: '. /srv/pgci/jobhelpers/pgxs-build.sh'
+      - shell: |
+          {shell_extra}
+          . /srv/pgci/jobhelpers/pgxs-build.sh
     publishers:
       - archive:
           artifacts: '**/regression.diffs,**/regression.out'
@@ -338,36 +382,69 @@
 - project:
     name: extensions
     ext:
-      - orafce: #FIXME
+      - orafce:
           git_url: 'https://github.com/orafce/orafce.git'
           git_browser_url: 'https://github.com/orafce/orafce/'
+          combination-filter:
+          matrix_sequential: false
+          shell_extra: 'PGCI_SKIP_CHECK=yes'
       - pg_logforward:
           git_url: 'https://github.com/mpihlak/pg_logforward.git'
           git_browser_url: 'https://github.com/mpihlak/pg_logforward'
+          combination-filter: 'pgversion != "9.1"'
+          matrix_sequential: false
+          shell_extra: ''
       - pghashlib:
           git_url: 'https://github.com/markokr/pghashlib.git'
           git_browser_url: 'https://github.com/markokr/pghashlib'
+          combination-filter:
+          matrix_sequential: false
+          shell_extra: ''
       - pglibuuid:
           git_url: 'https://github.com/petere/pglibuuid.git'
           git_browser_url: 'https://github.com/petere/pglibuuid'
-      - pgmemcache: #FIXME?
+          combination-filter:
+          matrix_sequential: false
+          shell_extra: ''
+      - pgmemcache:
           git_url: 'https://github.com/ohmu/pgmemcache.git'
           git_browser_url: 'https://github.com/ohmu/pgmemcache'
+          combination-filter:
+          matrix_sequential: false
+          shell_extra: ''
       - pgvihash:
           git_url: 'https://github.com/petere/pgvihash.git'
           git_browser_url: 'https://github.com/petere/pgvihash'
-      - plproxy: #FIXME
+          combination-filter:
+          matrix_sequential: false
+          shell_extra: ''
+      - plproxy:
           git_url: 'https://github.com/markokr/plproxy-dev.git'
           git_browser_url: 'https://github.com/markokr/plproxy-dev'
+          combination-filter:
+          matrix_sequential: false
+          shell_extra: 'WPTI_FLAGS=-CL'
       - plr:
           git_url: 'https://github.com/jconway/plr.git'
           git_browser_url: 'https://github.com/jconway/plr'
-      - plsh: #FIXME
+          combination-filter:
+          matrix_sequential: false
+          shell_extra: ''
+      - plsh:
           git_url: 'https://github.com/petere/plsh.git'
           git_browser_url: 'https://github.com/petere/plsh'
-      - plv8: #FIXME
-          git_url: 'https://code.google.com/p/plv8js'
-          git_browser_url: 'XXX'
+          combination-filter:
+          matrix_sequential: true
+          shell_extra: ''
+      - plv8:
+          git_url: 'https://github.com/plv8/plv8.git'
+          git_browser_url: 'https://github.com/plv8/plv8'
+          combination-filter:
+          matrix_sequential: false
+          shell_extra: |
+            case $pgversion in
+                9.1) WPTI_FLAGS="-ccustom_variable_classes='plv8'";;
+            esac
     jobs:
       - 'ext_{ext}'
 
@@ -418,3 +495,4 @@
       - tap:
           results: repotest.tap
           fail-if-no-results: true
+          output-tap-to-console: false
