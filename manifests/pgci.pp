@@ -133,9 +133,10 @@ Listen 443
 file { '/etc/apache2/conf.d/pgci':
   content => "\
 <IfModule mod_proxy.c>
-ProxyPass         /jenkins  http://localhost:8080/jenkins
+ProxyPass         /jenkins  http://localhost:8080/jenkins nocanon
 ProxyPassReverse  /jenkins  http://localhost:8080/jenkins
 ProxyRequests     Off
+AllowEncodedSlashes NoDecode
 
 <Proxy http://localhost:8080/jenkins*>
   Order deny,allow
