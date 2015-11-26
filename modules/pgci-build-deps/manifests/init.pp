@@ -12,6 +12,7 @@ class pgci-build-deps {
                   'gcc',
                   'gettext',
                   'libedit-dev',
+                  'libipc-run-perl',
                   'libkrb5-dev',
                   'libldap2-dev',
                   'libossp-uuid-dev',
