@@ -67,6 +67,8 @@ package { ['samba', 'smbfs']: ensure => purged }
 
 package { ['deborphan']: }
 
+package { 'openjdk-7-jre': }
+
 class { 'jenkins':
   version => held,
 }
