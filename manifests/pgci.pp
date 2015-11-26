@@ -91,8 +91,10 @@ group { 'jenkins':
 
 jenkins::plugin { 'analysis-core': }
 jenkins::plugin { 'build-blocker-plugin': }
+jenkins::plugin { 'clang-scanbuild-plugin': }
 jenkins::plugin { 'configurationslicing': }
 jenkins::plugin { 'copyartifact': }
+jenkins::plugin { 'credentials': }
 jenkins::plugin { 'description-setter': }
 jenkins::plugin { 'depgraph-view': }
 jenkins::plugin { 'disk-usage': }
@@ -101,9 +103,12 @@ jenkins::plugin { 'git-client': }
 jenkins::plugin { 'github': }
 jenkins::plugin { 'googleanalytics': }
 jenkins::plugin { 'htmlpublisher': }
+jenkins::plugin { 'mailer': }
+jenkins::plugin { 'matrix-project': }
 jenkins::plugin { 'multiple-scms': }
-jenkins::plugin { 'clang-scanbuild-plugin': }
 jenkins::plugin { 'port-allocator': }
+jenkins::plugin { 'scm-api': }
+jenkins::plugin { 'ssh-credentials': }
 jenkins::plugin { 'tap': }
 jenkins::plugin { 'text-finder': }
 jenkins::plugin { 'timestamper': }
