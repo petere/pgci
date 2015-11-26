@@ -455,7 +455,7 @@
       - git:
           url: https://github.com/petere/pex.git
           branches:
-            - origin/master
+            - remotes/origin/master
           shallow-clone: true
           clean:
             after: true
@@ -467,7 +467,7 @@
       - git:
           url: https://github.com/petere/pex-packages.git
           branches:
-            - origin/master
+            - remotes/origin/master
           shallow-clone: true
           clean:
             after: true
