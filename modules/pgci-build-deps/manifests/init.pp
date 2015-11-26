@@ -1,7 +1,6 @@
 class pgci-build-deps {
 
   $clang = $lsbdistcodename ? {
-    jessie => 'clang-3.3',
     saucy => 'clang-3.3',
     default => 'clang'
   }
@@ -13,6 +12,7 @@ class pgci-build-deps {
                   'gcc',
                   'gettext',
                   'libedit-dev',
+                  'libipc-run-perl',
                   'libkrb5-dev',
                   'libldap2-dev',
                   'libossp-uuid-dev',

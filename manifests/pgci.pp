@@ -67,6 +67,8 @@ package { ['samba', 'smbfs']: ensure => purged }
 
 package { ['deborphan']: }
 
+package { 'openjdk-7-jre': }
+
 class { 'jenkins':
   version => held,
 }
@@ -89,8 +91,10 @@ group { 'jenkins':
 
 jenkins::plugin { 'analysis-core': }
 jenkins::plugin { 'build-blocker-plugin': }
+jenkins::plugin { 'clang-scanbuild-plugin': version => '1.4' }
 jenkins::plugin { 'configurationslicing': }
 jenkins::plugin { 'copyartifact': }
+jenkins::plugin { 'credentials': }
 jenkins::plugin { 'description-setter': }
 jenkins::plugin { 'depgraph-view': }
 jenkins::plugin { 'disk-usage': }
@@ -99,9 +103,12 @@ jenkins::plugin { 'git-client': }
 jenkins::plugin { 'github': }
 jenkins::plugin { 'googleanalytics': }
 jenkins::plugin { 'htmlpublisher': }
+jenkins::plugin { 'mailer': }
+jenkins::plugin { 'matrix-project': }
 jenkins::plugin { 'multiple-scms': }
-jenkins::plugin { 'clang-scanbuild-plugin': }
 jenkins::plugin { 'port-allocator': }
+jenkins::plugin { 'scm-api': }
+jenkins::plugin { 'ssh-credentials': }
 jenkins::plugin { 'tap': }
 jenkins::plugin { 'text-finder': }
 jenkins::plugin { 'timestamper': }
@@ -133,9 +140,10 @@ Listen 443
 file { '/etc/apache2/conf.d/pgci':
   content => "\
 <IfModule mod_proxy.c>
-ProxyPass         /jenkins  http://localhost:8080/jenkins
+ProxyPass         /jenkins  http://localhost:8080/jenkins nocanon
 ProxyPassReverse  /jenkins  http://localhost:8080/jenkins
 ProxyRequests     Off
+AllowEncodedSlashes NoDecode
 
 <Proxy http://localhost:8080/jenkins*>
   Order deny,allow
