@@ -285,13 +285,13 @@ if $virtual != 'openvzve' {
   }
 }
 
-class { 'pgci-build-deps': }
-class { 'pgci-ferm': }
-class { 'pgci-icinga': }
+class { 'pgci_build_deps': }
+class { 'pgci_ferm': }
+class { 'pgci_icinga': }
 
 case $operatingsystem {
-  'Debian': { pgci-schroot { 'jessie': } }
-  'Ubuntu': { pgci-schroot { 'saucy': mirror => 'http://archive.ubuntu.com/ubuntu' } }
+  'Debian': { pgci_schroot { 'jessie': } }
+  'Ubuntu': { pgci_schroot { 'saucy': mirror => 'http://archive.ubuntu.com/ubuntu' } }
 }
 
 # interferes with facter

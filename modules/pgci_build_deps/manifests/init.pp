@@ -1,4 +1,4 @@
-class pgci-build-deps {
+class pgci_build_deps {
 
   $clang = $lsbdistcodename ? {
     saucy => 'clang-3.3',
@@ -85,7 +85,7 @@ class pgci-build-deps {
 
   file { '/etc/texmf/texmf.d/96JadeTeX.cnf':
     ensure => present,
-    source => 'puppet:///modules/pgci-build-deps/jadetex.cnf',
+    source => 'puppet:///modules/pgci_build_deps/jadetex.cnf',
     owner => root,
     group => root,
     notify => Exec['update-texmf'],

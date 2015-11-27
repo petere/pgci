@@ -1,4 +1,4 @@
-class pgci-schroot::prereqs {
+class pgci_schroot::prereqs {
   package {
     ['debootstrap', 'schroot']:
       ensure => installed,
@@ -9,6 +9,6 @@ class pgci-schroot::prereqs {
       ensure => directory;
     '/etc/schroot/jenkins/fstab':
       ensure => present,
-      content => template('pgci-schroot/schroot-fstab.erb');
+      content => template('pgci_schroot/schroot-fstab.erb');
   }
 }
