@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 80, host: 50080
   config.vm.network :forwarded_port, guest: 443, host: 50443
 
-  config.vm.provision :shell, :inline => 'apt-get update && apt-get -qqy install puppet facter'
+  config.vm.provision :shell, :inline => 'apt-get -qq update && apt-get -qqy install puppet facter'
 
   config.vm.provision :puppet do |puppet|
     puppet.manifest_file = "pgci.pp"
