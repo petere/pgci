@@ -18,6 +18,10 @@ that), and run
 If the Jenkins configuration is changed while Jenkins is running, you
 need to go into Jenkins and choose "reload configuration from disk".
 
+The Jenkins jobs are configured using
+[Jenkins Job Builder](http://docs.openstack.org/infra/jenkins-job-builder/index.html)
+using the definitions in the `job-builder/` directory.
+
 ## Local installation
 
 For testing and development, use Vagrant and just call
