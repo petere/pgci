@@ -335,7 +335,6 @@
     project-type: matrix
     description: Builds and tests extension {ext}
     execution-strategy:
-      combination-filter: '{combination-filter}'
       sequential: '{matrix_sequential}'
     axes:
       - axis:
@@ -391,61 +390,54 @@
       - orafce:
           git_url: 'https://github.com/orafce/orafce.git'
           git_browser_url: 'https://github.com/orafce/orafce/'
-          combination-filter:
           matrix_sequential: false
           shell_extra: 'PGCI_SKIP_CHECK=yes'
       - pg_logforward:
           git_url: 'https://github.com/mpihlak/pg_logforward.git'
           git_browser_url: 'https://github.com/mpihlak/pg_logforward'
-          combination-filter: 'pgversion != "9.1"'
           matrix_sequential: false
-          shell_extra: ''
+          shell_extra: |
+            case $pgversion in
+                9.1) exit 0;;
+            esac
       - pghashlib:
           git_url: 'https://github.com/markokr/pghashlib.git'
           git_browser_url: 'https://github.com/markokr/pghashlib'
-          combination-filter:
           matrix_sequential: false
           shell_extra: ''
       - pglibuuid:
           git_url: 'https://github.com/petere/pglibuuid.git'
           git_browser_url: 'https://github.com/petere/pglibuuid'
-          combination-filter:
           matrix_sequential: false
           shell_extra: ''
       - pgmemcache:
           git_url: 'https://github.com/ohmu/pgmemcache.git'
           git_browser_url: 'https://github.com/ohmu/pgmemcache'
-          combination-filter:
           matrix_sequential: false
           shell_extra: ''
       - pgvihash:
           git_url: 'https://github.com/petere/pgvihash.git'
           git_browser_url: 'https://github.com/petere/pgvihash'
-          combination-filter:
           matrix_sequential: false
           shell_extra: ''
       - plproxy:
           git_url: 'https://github.com/markokr/plproxy-dev.git'
           git_browser_url: 'https://github.com/markokr/plproxy-dev'
-          combination-filter:
           matrix_sequential: false
           shell_extra: 'WPTI_FLAGS=-CL'
       - plr:
           git_url: 'https://github.com/jconway/plr.git'
           git_browser_url: 'https://github.com/jconway/plr'
-          combination-filter:
           matrix_sequential: false
           shell_extra: ''
       - plsh:
           git_url: 'https://github.com/petere/plsh.git'
           git_browser_url: 'https://github.com/petere/plsh'
-          combination-filter:
           matrix_sequential: true
           shell_extra: ''
       - plv8:
           git_url: 'https://github.com/plv8/plv8.git'
           git_browser_url: 'https://github.com/plv8/plv8'
-          combination-filter:
           matrix_sequential: false
           shell_extra: |
             case $pgversion in
