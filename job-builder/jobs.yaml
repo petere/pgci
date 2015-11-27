@@ -55,7 +55,7 @@
             - 'GNU Make + GNU Compiler (gcc)'
           total-thresholds:
             unstable:
-              total-all: 1
+              total-all: '{num-warnings}'
 
 - job-template:
     name: postgresql_{label}_coverage
@@ -264,16 +264,22 @@
     label:
       - master:
           branch_name: master
+          num-warnings: 1
       - 9.5:
           branch_name: REL9_5_STABLE
+          num-warnings: 1
       - 9.4:
           branch_name: REL9_4_STABLE
+          num-warnings: 1
       - 9.3:
           branch_name: REL9_3_STABLE
+          num-warnings: 1
       - 9.2:
           branch_name: REL9_2_STABLE
+          num-warnings: 1
       - 9.1:
           branch_name: REL9_1_STABLE
+          num-warnings: 40
     jobs:
       - 'postgresql_{label}_dist'
       - 'postgresql_{label}_extradoc'
