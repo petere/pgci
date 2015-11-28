@@ -1,7 +1,7 @@
 language: c
 before_install: sudo apt-get -q update
 install:
-  - sudo apt-get -qy install puppet
+  - sudo apt-get -qy install puppet ruby
   - sudo gem install librarian-puppet
 script:
   - sudo ln -s $PWD /srv/pgci
