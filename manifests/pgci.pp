@@ -186,7 +186,7 @@ file { '/etc/apache2/conf.d/pgci-ssl':
 
 file { '/etc/default/jenkins':
   content => 'JAVA=/usr/bin/java
-JAVA_ARGS="-Xmx1000m"
+JAVA_ARGS="-Xmx1000m -Dhudson.DNSMultiCast.disabled=true"
 PIDFILE=/var/run/jenkins/jenkins.pid
 JENKINS_USER=jenkins
 JENKINS_WAR=/usr/share/jenkins/jenkins.war
