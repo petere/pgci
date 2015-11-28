@@ -1,4 +1,4 @@
-define pgci_schroot ($release = $title, $mirror = 'http://cdn.debian.net/debian') {
+define pgci_schroot ($release = $title, $mirror = 'http://httpredir.debian.org/debian') {
   include pgci_schroot::prereqs
   Class['pgci_schroot::prereqs'] -> Pgci_schroot["$title"]
 
