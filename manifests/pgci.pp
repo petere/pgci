@@ -103,6 +103,7 @@ jenkins::plugin { 'disk-usage': }
 jenkins::plugin { 'git': }
 jenkins::plugin { 'git-client': }
 jenkins::plugin { 'github': }
+jenkins::plugin { 'github-api': }
 jenkins::plugin { 'googleanalytics': }
 jenkins::plugin { 'htmlpublisher': }
 jenkins::plugin { 'mailer': }
