@@ -1,1 +1,2 @@
+PATH=/usr/local/bin:/usr/bin:/bin
 */22 * * * *	cd /srv/pgci/ && git pull -q --ff-only && [ x$(git rev-parse --verify --quiet HEAD) != x$(git rev-parse --verify --quiet ORIG_HEAD) ] && librarian-puppet install && puppet apply --color=false --show_diff --modulepath=modules/ manifests/pgci.pp
