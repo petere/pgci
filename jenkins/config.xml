@@ -164,10 +164,6 @@
   <primaryView>All Problems</primaryView>
   <slaveAgentPort>-1</slaveAgentPort>
   <label></label>
-  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
-    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
-    <PROXY__HEADER>X-Forwarded-For</PROXY__HEADER>
-  </crumbIssuer>
   <nodeProperties/>
   <globalNodeProperties>
     <hudson.slaves.EnvironmentVariablesNodeProperty>
