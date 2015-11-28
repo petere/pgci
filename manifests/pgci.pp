@@ -70,6 +70,7 @@ package { ['deborphan']: }
 package { 'openjdk-7-jre': }
 
 class { 'jenkins':
+  lts => 1,
   version => held,
 }
 package { 'git': }
