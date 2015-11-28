@@ -9,10 +9,17 @@ run your own (or contribute to mine).
 
 Installation is currently supported on Debian squeeze (6.0) and Ubuntu precise (12.04 LTS).
 
+`librarian-puppet` is used to manage Puppet modules.  Run
+
+    gem install librarian-puppet
+
+to install it.
+
 On a fresh installation, clone the repository to `/srv/pgci`
 (this exact path is currently required; I'm working on a way to avoid
 that), and run
 
+    librarian-puppet install
     puppet apply --modulepath=modules/ manifests/pgci.pp
 
 If the Jenkins configuration is changed while Jenkins is running, you

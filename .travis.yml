@@ -1,4 +1,9 @@
 language: c
 before_install: sudo apt-get -q update
-install: sudo apt-get -qy install puppet
-script: sudo ln -s $PWD /srv/pgci; sudo puppet apply --detailed-exitcodes --modulepath=modules/ manifests/pgci.pp; test $? -eq 2
+install:
+  - sudo apt-get -qy install puppet
+  - sudo gem install librarian-puppet
+script:
+  - sudo ln -s $PWD /srv/pgci
+  - librarian-puppet install
+  - sudo puppet apply --detailed-exitcodes --modulepath=modules/ manifests/pgci.pp; test $? -eq 2
