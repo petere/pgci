@@ -91,6 +91,7 @@ group { 'jenkins':
 }
 
 jenkins::plugin { 'analysis-core': }
+jenkins::plugin { 'ansicolor': }
 jenkins::plugin { 'build-blocker-plugin': }
 jenkins::plugin { 'clang-scanbuild-plugin': version => '1.4' }
 jenkins::plugin { 'configurationslicing': }
