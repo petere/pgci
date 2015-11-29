@@ -58,3 +58,16 @@ find . -name 'tmp_check' | xargs rm -rf
 
 make install DESTDIR=$PWD/postgresql-$majorversion.bin
 tar cJf postgresql-$majorversion.bin.tar.xz postgresql-$majorversion.bin/
+
+mkdir -p .git/info/
+echo "\
+/postgresql-*.bin*
+*.po.new
+/src/backend/gettext-files
+/.slocdata/
+/sloccount.sc
+" >.git/info/exclude
+if git status --short | grep -q '.'; then
+	git status --short
+	echo unstable | md5sum
+fi
