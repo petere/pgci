@@ -31,6 +31,7 @@ class pgci_build_deps {
                   'tcl-dev',
 
                   'lcov',
+                  'sloccount',
 
                   'dbtoepub',
                   'docbook',

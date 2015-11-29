@@ -111,6 +111,7 @@ jenkins::plugin { 'matrix-project': }
 jenkins::plugin { 'multiple-scms': }
 jenkins::plugin { 'port-allocator': }
 jenkins::plugin { 'scm-api': }
+jenkins::plugin { 'sloccount': }
 jenkins::plugin { 'ssh-credentials': }
 jenkins::plugin { 'tap': }
 jenkins::plugin { 'text-finder': }

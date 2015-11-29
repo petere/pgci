@@ -43,6 +43,7 @@
           dir: doc/src/sgml/html/
           files: index.html
           keep-all: false
+      - sloccount
       - text-finder:
           regexp: 5644dbce38ce0f5f16155eba9988fee1
           also-check-console-output: true

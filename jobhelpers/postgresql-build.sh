@@ -1,3 +1,6 @@
+mkdir -p "$WORKSPACE/.slocdata"
+sloccount --datadir "$WORKSPACE/.slocdata" --addlangall --duplicates --wide --details . >sloccount.sc
+
 case $JOB_NAME in
 	postgresql_?.?_world)
 		last_tag=$(git describe --tags --abbrev=0 --match='REL*' || :)
