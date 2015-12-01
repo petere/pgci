@@ -4,6 +4,8 @@
     logrotate:
       daysToKeep: 70
       numToKeep: 50
+      artifactDaysToKeep: 15
+      artifactNumToKeep: 15
     wrappers:
       - ansicolor
       - timestamps
@@ -14,6 +16,8 @@
     logrotate:
       daysToKeep: 200
       numToKeep: 100
+      artifactDaysToKeep: 15
+      artifactNumToKeep: 15
     scm:
       - git:
           url: git://git.postgresql.org/git/postgresql.git
