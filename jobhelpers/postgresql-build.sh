@@ -61,6 +61,7 @@ tar cJf postgresql-$majorversion.bin.tar.xz postgresql-$majorversion.bin/
 
 mkdir -p .git/info/
 echo "\
+/git-log-since-last-tag.txt
 /postgresql-*.bin*
 *.po.new
 /src/backend/gettext-files
