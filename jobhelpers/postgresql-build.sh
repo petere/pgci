@@ -64,6 +64,7 @@ echo "\
 /git-log-since-last-tag.txt
 /postgresql-*.bin*
 *.po.new
+*.pot
 /src/backend/gettext-files
 /.slocdata/
 /sloccount.sc
