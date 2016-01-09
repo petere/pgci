@@ -396,7 +396,11 @@
           git_url: 'https://github.com/orafce/orafce.git'
           git_browser_url: 'https://github.com/orafce/orafce/'
           matrix_sequential: false
-          shell_extra: 'PGCI_SKIP_CHECK=yes'
+          shell_extra: |
+            PGCI_SKIP_CHECK=yes
+            case $pgversion in
+                9.1) exit 0;;
+            esac
       - pg_logforward:
           git_url: 'https://github.com/mpihlak/pg_logforward.git'
           git_browser_url: 'https://github.com/mpihlak/pg_logforward'
