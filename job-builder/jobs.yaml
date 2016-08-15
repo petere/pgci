@@ -242,7 +242,7 @@
     description: Runs <a href="http://clang-analyzer.llvm.org/scan-build.html">clang scan-build</a> over the PostgreSQL sources.
     logrotate:
       daysToKeep: 70
-      numToKeep: 30
+      numToKeep: 20
     scm:
       - git:
           url: git://git.postgresql.org/git/postgresql.git
