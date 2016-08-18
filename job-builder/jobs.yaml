@@ -269,10 +269,10 @@
     label:
       - master:
           branch_name: master
-          num-warnings: 1
+          num-warnings: 3
       - 9.6:
           branch_name: REL9_6_STABLE
-          num-warnings: 1
+          num-warnings: 3
       - 9.5:
           branch_name: REL9_5_STABLE
           num-warnings: 1
