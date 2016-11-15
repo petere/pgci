@@ -285,9 +285,6 @@
       - 9.2:
           branch_name: REL9_2_STABLE
           num-warnings: 1
-      - 9.1:
-          branch_name: REL9_1_STABLE
-          num-warnings: 40
     jobs:
       - 'postgresql_{label}_dist'
       - 'postgresql_{label}_extradoc'
@@ -327,9 +324,6 @@
       - copyartifact:
           project: postgresql_9.2_world
           filter: postgresql-*.bin.tar.xz
-      - copyartifact:
-          project: postgresql_9.1_world
-          filter: postgresql-*.bin.tar.xz
     publishers:
       - archive:
           artifacts: postgresql-*.bin.tar.xz
@@ -349,7 +343,6 @@
           type: user-defined
           name: pgversion
           values:
-            - 9.1
             - 9.2
             - 9.3
             - 9.4
@@ -401,17 +394,11 @@
           matrix_sequential: false
           shell_extra: |
             PGCI_SKIP_CHECK=yes
-            case $pgversion in
-                9.1) exit 0;;
-            esac
       - pg_logforward:
           git_url: 'https://github.com/mpihlak/pg_logforward.git'
           git_browser_url: 'https://github.com/mpihlak/pg_logforward'
           matrix_sequential: false
-          shell_extra: |
-            case $pgversion in
-                9.1) exit 0;;
-            esac
+          shell_extra: ''
       - pghashlib:
           git_url: 'https://github.com/markokr/pghashlib.git'
           git_browser_url: 'https://github.com/markokr/pghashlib'
@@ -451,10 +438,7 @@
           git_url: 'https://github.com/plv8/plv8.git'
           git_browser_url: 'https://github.com/plv8/plv8'
           matrix_sequential: false
-          shell_extra: |
-            case $pgversion in
-                9.1) WPTI_FLAGS="-ccustom_variable_classes='plv8'";;
-            esac
+          shell_extra: ''
     jobs:
       - 'ext_{ext}'
 
