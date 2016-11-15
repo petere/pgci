@@ -1,11 +1,12 @@
 - defaults:
     name: global
     block-upstream: true
-    logrotate:
-      daysToKeep: 70
-      numToKeep: 50
-      artifactDaysToKeep: 15
-      artifactNumToKeep: 15
+    properties:
+      - build-discarder:
+          days-to-keep: 70
+          num-to-keep: 50
+          artifact-days-to-keep: 15
+          artifact-num-to-keep: 15
     wrappers:
       - ansicolor
       - timestamps
@@ -13,11 +14,12 @@
 - job-template:
     name: postgresql_{label}_world
     description: 'Runs <code>make world</code> and <code>make check-world</code> with most build options enabled.'
-    logrotate:
-      daysToKeep: 200
-      numToKeep: 100
-      artifactDaysToKeep: 15
-      artifactNumToKeep: 15
+    properties:
+      - build-discarder:
+          days-to-keep: 200
+          num-to-keep: 100
+          artifact-days-to-keep: 15
+          artifact-num-to-keep: 15
     scm:
       - git:
           url: git://git.postgresql.org/git/postgresql.git
@@ -65,9 +67,10 @@
 - job-template:
     name: postgresql_{label}_coverage
     description: Runs the main regression tests (<code>make check</code>) and collects code coverage information.
-    logrotate:
-      daysToKeep: 70
-      numToKeep: 30
+    properties:
+      - build-discarder:
+          days-to-keep: 70
+          num-to-keep: 30
     quiet-period: 120
     scm:
       - git:
@@ -124,14 +127,14 @@
 - job-template:
     name: postgresql_{label}_extradoc
     description: "Builds additional nonstandard documentation formats: HTML via XSLT, PDF, Info, EPUB"
-    logrotate:
-      daysToKeep: 40
-      numToKeep: 20
     properties:
       - build-blocker:
           use-build-blocker: true
           blocking-jobs:
             - ".*"
+      - build-discarder:
+          days-to-keep: 40
+          num-to-keep: 20
     scm:
       - git:
           url: git://git.postgresql.org/git/postgresql.git
@@ -241,9 +244,10 @@
 - job-template:
     name: postgresql_{label}_scan-build
     description: Runs <a href="http://clang-analyzer.llvm.org/scan-build.html">clang scan-build</a> over the PostgreSQL sources.
-    logrotate:
-      daysToKeep: 70
-      numToKeep: 10
+    properties:
+      - build-discarder:
+          days-to-keep: 70
+          num-to-keep: 10
     scm:
       - git:
           url: git://git.postgresql.org/git/postgresql.git
@@ -306,9 +310,10 @@
 - job:
     name: _extensions_trigger
     description: Triggers the build of all extensions whenever a PostgreSQL build has finished.
-    logrotate:
-      daysToKeep: 10
-      numToKeep: 1
+    properties:
+      - build-discarder:
+          days-to-keep: 10
+          num-to-keep: 1
     builders:
       - copyartifact:
           project: postgresql_master_world
