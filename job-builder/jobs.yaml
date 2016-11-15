@@ -156,6 +156,7 @@
           dir: doc/src/sgml/html/
           files: index.html
           keep-all: false
+          allow-missing: true
 
 - job-template:
     name: postgresql_{label}_linkcheck
