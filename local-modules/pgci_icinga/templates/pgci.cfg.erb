@@ -48,27 +48,27 @@ define service {
 
 define service {
 	check_command                  check_http
-	host_name                      <%= hostname %>
+	host_name                      <%= @hostname %>
 	use                            generic-service
 	service_description            HTTP
 }
 
 define service {
 	check_command                  check_http_jenkins
-	host_name                      <%= hostname %>
+	host_name                      <%= @hostname %>
 	use                            generic-service
 	service_description            HTTP Jenkins
 }
 
 define service {
 	check_command                  check_https
-	host_name                      <%= hostname %>
+	host_name                      <%= @hostname %>
 	use                            generic-service
 	service_description            HTTPS
 }
 
 define host {
-	address                        <%= ipaddress %>
-	host_name                      <%= hostname %>
+	address                        <%= @ipaddress %>
+	host_name                      <%= @hostname %>
 	use                            generic-host
 }

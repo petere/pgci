@@ -1,9 +1,9 @@
-[pgci-<%= release %>]
+[pgci-<%= @release %>]
 type=directory
-description=<%= release %> chroot for PGCI
+description=<%= @release %> chroot for PGCI
 users=jenkins
 profile=minimal
 personality=linux
-directory=/srv/chroot/pgci-<%= release %>
+directory=/srv/chroot/pgci-<%= @release %>
 preserve-environment=true
 setup.fstab=jenkins/fstab
