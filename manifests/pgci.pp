@@ -50,6 +50,7 @@ package { 'git': }
 
 jenkins::plugin { 'analysis-core': }
 jenkins::plugin { 'ansicolor': }
+jenkins::plugin { 'antisamy-markup-formatter': }
 jenkins::plugin { 'build-blocker-plugin': }
 jenkins::plugin { 'clang-scanbuild-plugin': version => '1.4' }
 jenkins::plugin { 'configurationslicing': }
@@ -57,25 +58,40 @@ jenkins::plugin { 'copyartifact': }
 jenkins::plugin { 'description-setter': }
 jenkins::plugin { 'depgraph-view': }
 jenkins::plugin { 'disk-usage': }
+jenkins::plugin { 'display-url-api': }
 jenkins::plugin { 'git': }
 jenkins::plugin { 'git-client': }
 jenkins::plugin { 'github': }
 jenkins::plugin { 'github-api': }
 jenkins::plugin { 'googleanalytics': }
 jenkins::plugin { 'htmlpublisher': }
+jenkins::plugin { 'javadoc': }
+jenkins::plugin { 'jquery': }
+jenkins::plugin { 'jquery-ui': }
+jenkins::plugin { 'junit': }
 jenkins::plugin { 'mailer': }
 jenkins::plugin { 'matrix-project': }
+jenkins::plugin { 'maven-plugin': }
 jenkins::plugin { 'multiple-scms': }
+jenkins::plugin { 'plain-credentials': }
 jenkins::plugin { 'port-allocator': }
+jenkins::plugin { 'resource-disposer': }
 jenkins::plugin { 'scm-api': }
+jenkins::plugin { 'script-security': }
 jenkins::plugin { 'sloccount': }
 jenkins::plugin { 'ssh-credentials': }
+jenkins::plugin { 'structs': }
 jenkins::plugin { 'tap': }
 jenkins::plugin { 'text-finder': }
 jenkins::plugin { 'timestamper': }
 jenkins::plugin { 'thinBackup': }
+jenkins::plugin { 'token-macro': }
 jenkins::plugin { 'view-job-filters': }
 jenkins::plugin { 'warnings': }
+jenkins::plugin { 'workflow-api': }
+jenkins::plugin { 'workflow-basic-steps': }
+jenkins::plugin { 'workflow-scm-step': }
+jenkins::plugin { 'workflow-step-api': }
 jenkins::plugin { 'ws-cleanup': }
 
 package { 'graphviz': }  # for depgraph-view
