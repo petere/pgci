@@ -96,25 +96,18 @@ jenkins::plugin { 'ws-cleanup': }
 
 package { 'graphviz': }  # for depgraph-view
 
-class { 'apache': }
+class { 'apache':
+  default_vhost => false,
+}
 class { 'apache::mod::proxy': }
 class { 'apache::mod::proxy_http': }
 class { 'apache::mod::ssl': }
 apache::mod { 'rewrite': }
 
-file { '/etc/apache2': ensure => directory }
-file { '/etc/apache2/conf.d': ensure => directory }
+apache::listen { '80': }
+apache::listen { '443': }
 
-file { '/etc/apache2/ports.conf':
-  content => "\
-Listen 80
-Listen 443
-",
-
-  notify => Service['httpd'],
-}
-
-file { '/etc/apache2/conf.d/pgci':
+file { '/etc/apache2/conf.d/pgci.conf':
   content => "\
 <IfModule mod_proxy.c>
 ProxyPass         /jenkins  http://localhost:8080/jenkins nocanon
@@ -142,7 +135,7 @@ RewriteRule ^/$ jenkins/ [R]
   notify => Service['httpd'],
 }
 
-file { '/etc/apache2/conf.d/pgci-ssl':
+file { '/etc/apache2/conf.d/pgci-ssl.conf':
   content => "\
 <VirtualHost _default_:443>
 <IfModule mod_ssl.c>
@@ -151,7 +144,7 @@ file { '/etc/apache2/conf.d/pgci-ssl':
   SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
 </IfModule>
 
-  Include conf.d/pgci
+  Include conf.d/pgci.conf
 </VirtualHost>
 ",
 
