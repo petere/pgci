@@ -7,7 +7,7 @@ run your own (or contribute to mine).
 
 ## Installation
 
-Installation is currently supported on Debian squeeze (6.0) and Ubuntu precise (12.04 LTS).
+Installation is currently supported on Debian wheezy (7) and Ubuntu precise (12.04 LTS).
 
 `librarian-puppet` is used to manage Puppet modules.  Run
 
