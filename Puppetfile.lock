@@ -1,16 +1,24 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
+    darin-zypprepo (1.0.2)
+    puppet-archive (1.1.2)
+      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
     puppetlabs-apache (0.4.0)
       puppetlabs-firewall (>= 0.0.4)
       puppetlabs-stdlib (>= 2.2.1)
     puppetlabs-apt (0.0.4)
       puppetlabs-stdlib (>= 2.2.1)
-    puppetlabs-firewall (1.7.1)
-    puppetlabs-stdlib (3.1.0)
-    rtyler-jenkins (0.2.4)
-      puppetlabs-apt (>= 0.0.3)
-      puppetlabs-stdlib (>= 2.0.0)
+    puppetlabs-firewall (1.8.1)
+    puppetlabs-java (1.6.0)
+      puppetlabs-stdlib (< 5.0.0, >= 2.4.0)
+    puppetlabs-stdlib (4.13.1)
+    rtyler-jenkins (1.7.0)
+      darin-zypprepo (< 2.0.0, >= 1.0.1)
+      puppet-archive (>= 0.4.8)
+      puppetlabs-apt (< 3.0.0, >= 0.0.3)
+      puppetlabs-java (< 2.0.0, >= 1.0.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
 
 PATH
   remote: local-modules/pgci_build_deps/
@@ -39,5 +47,5 @@ DEPENDENCIES
   pgci-pgci_schroot (>= 0)
   puppetlabs-apache (= 0.4.0)
   puppetlabs-apt (= 0.0.4)
-  rtyler-jenkins (= 0.2.4)
+  rtyler-jenkins (= 1.7.0)
 

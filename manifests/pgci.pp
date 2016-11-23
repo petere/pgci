@@ -39,28 +39,14 @@ package { ['samba', 'smbfs']: ensure => purged }
 
 package { ['deborphan']: }
 
-package { 'openjdk-7-jre': }
-
 class { 'jenkins':
+  config_hash => {
+    'JAVA_ARGS' => { value => '-Xmx1000m -Dhudson.DNSMultiCast.disabled=true -Djava.awt.headless=true -Djenkins.install.runSetupWizard=false' },
+  },
   lts => true,
   version => held,
 }
 package { 'git': }
-
-# needed to run git inside jenkins
-# see https://github.com/jenkinsci/jenkins/pull/591
-user { 'jenkins':
-  comment => 'Jenkins',
-  gid => 'jenkins',
-  system => true,
-  require => Class['jenkins::package'],
-  before => Class['jenkins::service'],
-}
-
-group { 'jenkins':
-  ensure => present,
-  system => true,
-}
 
 jenkins::plugin { 'analysis-core': }
 jenkins::plugin { 'ansicolor': }
@@ -68,7 +54,6 @@ jenkins::plugin { 'build-blocker-plugin': }
 jenkins::plugin { 'clang-scanbuild-plugin': version => '1.4' }
 jenkins::plugin { 'configurationslicing': }
 jenkins::plugin { 'copyartifact': }
-jenkins::plugin { 'credentials': }
 jenkins::plugin { 'description-setter': }
 jenkins::plugin { 'depgraph-view': }
 jenkins::plugin { 'disk-usage': }
@@ -157,38 +142,14 @@ file { '/etc/apache2/conf.d/pgci-ssl':
   notify => Service['httpd'],
 }
 
-file { '/etc/default/jenkins':
-  content => 'JAVA=/usr/bin/java
-JAVA_ARGS="-Xmx1000m -Dhudson.DNSMultiCast.disabled=true"
-PIDFILE=/var/run/jenkins/jenkins.pid
-JENKINS_USER=jenkins
-JENKINS_WAR=/usr/share/jenkins/jenkins.war
-JENKINS_HOME=/var/lib/jenkins
-RUN_STANDALONE=true
-JENKINS_LOG=/var/log/jenkins/jenkins.log
-MAXOPENFILES=8192
-HTTP_PORT=8080
-AJP_PORT=-1
-PREFIX=/jenkins
-JENKINS_ARGS="--webroot=/var/cache/jenkins/war --httpPort=$HTTP_PORT --ajp13Port=$AJP_PORT --httpListenAddress=127.0.0.1 --prefix=$PREFIX"
-',
-
-  backup => '.puppet-bak',
-  before => Class["jenkins::service"],
-  notify => Service['jenkins'],
-}
-
-file { '/var/lib/jenkins':
-  ensure => directory,
-  recurse => remote,
-  source => '/srv/pgci/jenkins',
+file { '/var/lib/jenkins/config.xml':
+  source => '/srv/pgci/jenkins/config.xml',
   owner => jenkins,
   group => jenkins,
 }
 
-# to override jenkins plugin
-file { '/var/lib/jenkins/plugins':
-  ensure => directory,
+file { '/var/lib/jenkins/org.jenkinsci.main.modules.sshd.SSHD.xml':
+  source => '/srv/pgci/jenkins/org.jenkinsci.main.modules.sshd.SSHD.xml',
   owner => jenkins,
   group => jenkins,
 }
