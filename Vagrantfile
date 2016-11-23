@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'debian-710-x64-vbox4210-nocm'
+  config.vm.box = 'bento/debian-7.8'
 
   config.vm.hostname = 'pgci-vagrant'
 
