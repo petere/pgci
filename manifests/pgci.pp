@@ -105,12 +105,7 @@ class { 'apache::mod::proxy_http': }
 class { 'apache::mod::ssl': }
 apache::mod { 'rewrite': }
 
-apache::listen { '80': }
-apache::listen { '443': }
-
-file { '/etc/apache2/conf.d/pgci.conf':
-  content => "\
-<IfModule mod_proxy.c>
+$custom_fragment = "\
 ProxyPass         /jenkins  http://localhost:8080/jenkins nocanon
 ProxyPassReverse  /jenkins  http://localhost:8080/jenkins
 ProxyRequests     Off
@@ -125,31 +120,24 @@ AllowEncodedSlashes NoDecode
   Order deny,allow
   Allow from all
 </Location>
-</IfModule>
-
-DocumentRoot /var/www
 
 RewriteEngine on
 RewriteRule ^/$ jenkins/ [R]
-",
+"
 
-  notify => Service['httpd'],
+apache::vhost { 'pgci':
+  custom_fragment => $custom_fragment,
+  docroot => '/var/www',
+  port => 80,
 }
 
-file { '/etc/apache2/conf.d/pgci-ssl.conf':
-  content => "\
-<VirtualHost _default_:443>
-<IfModule mod_ssl.c>
-  SSLEngine on
-  SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
-  SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-</IfModule>
-
-  Include conf.d/pgci.conf
-</VirtualHost>
-",
-
-  notify => Service['httpd'],
+apache::vhost { 'pgci-ssl':
+  custom_fragment => $custom_fragment,
+  docroot => '/var/www',
+  port => 443,
+  ssl => true,
+  ssl_cert => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
+  ssl_key => '/etc/ssl/private/ssl-cert-snakeoil.key',
 }
 
 file { '/var/lib/jenkins/config.xml':
