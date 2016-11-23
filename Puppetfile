@@ -2,6 +2,7 @@ forge 'https://forgeapi.puppetlabs.com'
 
 mod 'puppetlabs-apache'
 mod 'puppetlabs-apt'
+mod 'puppetlabs-ntp', '4.2.0'
 mod 'rtyler-jenkins'
 
 mod 'pgci-pgci_build_deps', path: 'local-modules/pgci_build_deps/'

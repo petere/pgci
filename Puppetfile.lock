@@ -12,6 +12,8 @@ FORGE
     puppetlabs-firewall (1.8.1)
     puppetlabs-java (1.6.0)
       puppetlabs-stdlib (< 5.0.0, >= 2.4.0)
+    puppetlabs-ntp (4.2.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
     puppetlabs-stdlib (4.13.1)
     rtyler-jenkins (1.7.0)
       darin-zypprepo (< 2.0.0, >= 1.0.1)
@@ -47,5 +49,6 @@ DEPENDENCIES
   pgci-pgci_schroot (>= 0)
   puppetlabs-apache (>= 0)
   puppetlabs-apt (>= 0)
+  puppetlabs-ntp (= 4.2.0)
   rtyler-jenkins (>= 0)
 

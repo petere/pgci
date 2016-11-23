@@ -230,12 +230,7 @@ exec { 'hostname':
 }
 
 if $virtual != 'openvzve' {
-  package { 'ntp': }
-  service { 'ntp':
-    ensure => running,
-    restart => '/etc/init.d/ntp reload',
-    require => Package['ntp'],
-  }
+  class { 'ntp': }
 }
 
 class { 'pgci_build_deps': }
