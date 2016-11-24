@@ -23,8 +23,6 @@ if $operatingsystem == 'Debian' {
 }
 
 
-Exec['apt_update'] -> Package <| |>
-
 file { '/etc/apt/apt.conf.d/10periodic':
   content => "\
 APT::Periodic::Update-Package-Lists \"1\";
@@ -44,7 +42,7 @@ package { ['deborphan']: }
 package { 'openjdk-7-jre': }
 
 class { 'jenkins':
-  lts => 1,
+  lts => true,
   version => held,
 }
 package { 'git': }
