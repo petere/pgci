@@ -45,7 +45,7 @@ DEPENDENCIES
   pgci-pgci_ferm (>= 0)
   pgci-pgci_icinga (>= 0)
   pgci-pgci_schroot (>= 0)
-  puppetlabs-apache (= 0.4.0)
-  puppetlabs-apt (= 0.0.4)
-  rtyler-jenkins (= 1.7.0)
+  puppetlabs-apache (>= 0)
+  puppetlabs-apt (>= 0)
+  rtyler-jenkins (>= 0)
 
