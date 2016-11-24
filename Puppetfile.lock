@@ -15,28 +15,28 @@ FORGE
 PATH
   remote: local-modules/pgci_build_deps/
   specs:
-    pgci_build_deps (0.0.1)
+    pgci-pgci_build_deps (0.0.1)
 
 PATH
   remote: local-modules/pgci_ferm/
   specs:
-    pgci_ferm (0.0.1)
+    pgci-pgci_ferm (0.0.1)
 
 PATH
   remote: local-modules/pgci_icinga/
   specs:
-    pgci_icinga (0.0.1)
+    pgci-pgci_icinga (0.0.1)
 
 PATH
   remote: local-modules/pgci_schroot/
   specs:
-    pgci_schroot (0.0.1)
+    pgci-pgci_schroot (0.0.1)
 
 DEPENDENCIES
-  pgci_build_deps (>= 0)
-  pgci_ferm (>= 0)
-  pgci_icinga (>= 0)
-  pgci_schroot (>= 0)
+  pgci-pgci_build_deps (>= 0)
+  pgci-pgci_ferm (>= 0)
+  pgci-pgci_icinga (>= 0)
+  pgci-pgci_schroot (>= 0)
   puppetlabs-apache (= 0.4.0)
   puppetlabs-apt (= 0.0.4)
   rtyler-jenkins (= 0.2.4)
