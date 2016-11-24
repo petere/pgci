@@ -1,12 +1,7 @@
 class pgci_build_deps {
 
-  $clang = $lsbdistcodename ? {
-    saucy => 'clang-3.3',
-    default => 'clang'
-  }
-
   $build_deps = [ 'bison',
-                  $clang,
+                  'clang',
                   'flex',
                   'g++',
                   'gcc',
@@ -68,15 +63,6 @@ class pgci_build_deps {
 
   if $operatingsystem == 'Debian' and $is_chroot == 'true' {
     package { 'locales-all': }
-  }
-
-
-  if $lsbdistcodename == 'squeeze' {
-    apt::pin { 'squeeze-backports':
-      packages => ['fop', 'libfop-java'],
-      priority => 500,
-      before => Package['fop'],
-    }
   }
 
 
