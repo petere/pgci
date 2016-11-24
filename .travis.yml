@@ -1,4 +1,6 @@
 language: c
+dist: trusty
+sudo: required
 before_install: sudo apt-get -q update
 install:
   - sudo apt-get -qy install puppet ruby
