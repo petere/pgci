@@ -431,8 +431,8 @@
           matrix_sequential: false
           shell_extra: 'WPTI_FLAGS=-CL'
       - plr:
-          git_url: 'https://github.com/jconway/plr.git'
-          git_browser_url: 'https://github.com/jconway/plr'
+          git_url: 'https://github.com/postgres-plr/plr.git'
+          git_browser_url: 'https://github.com/postgres-plr/plr'
           matrix_sequential: false
           shell_extra: ''
       - plsh:
