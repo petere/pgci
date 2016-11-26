@@ -316,7 +316,7 @@
           num-to-keep: 1
     builders:
       - copyartifact:
-          project: postgresql_master_world
+          project: postgresql_9.6_world
           filter: postgresql-*.bin.tar.xz
       - copyartifact:
           project: postgresql_9.5_world
