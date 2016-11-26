@@ -10,7 +10,7 @@ case $JOB_NAME in
 		;;
 esac
 
-majorversion=$(./configure --version | sed -n -r '1s/^.* ([0-9]+\.[0-9]+).*$/\1/p')
+majorversion=$(./configure --version | sed -n -r '1s/^.* ([0-9]+(\.[0-9]+)?).*$/\1/p')
 
 case $majorversion in
 	8.* | 9.[01] ) ;;
