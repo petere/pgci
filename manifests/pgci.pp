@@ -45,7 +45,6 @@ class { 'jenkins':
     'JENKINS_ARGS' => { value => '--webroot=/var/cache/jenkins/war --httpPort=$HTTP_PORT --httpListenAddress=127.0.0.1 --prefix=$PREFIX' },
   },
   lts => true,
-  version => held,
 }
 package { 'git': }
 
