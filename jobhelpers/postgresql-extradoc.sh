@@ -21,7 +21,13 @@ export JAVA_ARGS
 
 test -e GNUmakefile || ./configure
 cd doc/src/sgml
-if grep -q xslthtml doc/src/sgml/Makefile; then
-	make -k xslthtml
+targets=''
+if grep -q xslthtml Makefile; then
+	targets="$targets xslthtml"
 fi
-make -k postgres-A4.pdf postgres-US.pdf postgres.info postgres-A4-fop.pdf postgres-US-fop.pdf epub
+targets="$targets postgres-A4.pdf postgres-US.pdf postgres.info epub"
+if grep -q -- -fop.pdf Makefile; then
+	targets="$targets postgres-A4-fop.pdf postgres-US-fop.pdf"
+fi
+
+make -k $targets
