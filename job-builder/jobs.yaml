@@ -275,6 +275,9 @@
       - master:
           branch_name: master
           num-warnings: 3
+      - 10:
+          branch_name: REL_10_STABLE
+          num-warnings: 3
       - 9.6:
           branch_name: REL9_6_STABLE
           num-warnings: 3
@@ -316,6 +319,9 @@
           num-to-keep: 1
     builders:
       - copyartifact:
+          project: postgresql_10_world
+          filter: postgresql-*.bin.tar.xz
+      - copyartifact:
           project: postgresql_9.6_world
           filter: postgresql-*.bin.tar.xz
       - copyartifact:
@@ -354,6 +360,7 @@
             - 9.4
             - 9.5
             - 9.6
+            - 10
     scm:
       - git:
           url: '{git_url}'
