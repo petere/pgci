@@ -200,18 +200,50 @@
           clean:
             after: true
           fastpoll: true
-          wipe-workspace: true
+          wipe-workspace: false
           browser: gitweb
           browser-url: http://git.postgresql.org/gitweb/?p=postgresql.git
+          basedir: postgresql
+      - git:
+          url: git://git.postgresql.org/git/pg_bsd_indent.git
+          branches:
+            - master
+          shallow-clone: true
+          clean:
+            after: true
+          fastpoll: true
+          wipe-workspace: false
+          browser: gitweb
+          browser-url: http://git.postgresql.org/gitweb/?p=pg_bsd_indent.git
+          basedir: pg_bsd_indent
     triggers:
       - reverse:
           jobs: 'postgresql_{label}_world'
           result: 'success'
     builders:
-      - shell: '. /srv/pgci/jobhelpers/postgresql-pgindent.sh'
+      - shell: |
+          cd postgresql/
+          git reset --hard
+          ./configure --prefix=$WORKSPACE/install
+          make install
+      - shell: |
+          cd pg_bsd_indent/
+          make PG_CONFIG=$WORKSPACE/install/bin/pg_config install
+      - shell: |
+          PATH=$WORKSPACE/install/bin:$PATH
+          cd postgresql/
+          wget -O src/tools/pgindent/typedefs.list https://buildfarm.postgresql.org/cgi-bin/typedefs.pl
+          src/tools/pgindent/pgindent
+          git diff --src-prefix=original/ --dst-prefix=pgindent/ --patch --stat --dirstat >pgindent.diff
+      - shell: |
+          cd postgresql/
+          make
+          make check
+          make -C contrib
+          #make -C contrib check
     publishers:
       - archive:
-          artifacts: 'pgindent.diff'
+          artifacts: 'postgresql/pgindent.diff'
           allow-empty: false
           latest-only: true
 
